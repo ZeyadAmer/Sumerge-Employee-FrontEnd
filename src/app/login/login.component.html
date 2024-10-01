@@ -31,6 +31,7 @@
            </div>
            <div class="signup-link">
              Not a member? <a href="#">Signup now</a>
+             <div *ngIf="error" class="error-message">{{ error }}</div> 
            </div>
          </form>
        </div>

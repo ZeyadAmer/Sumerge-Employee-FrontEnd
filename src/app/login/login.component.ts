@@ -1,48 +1,51 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common'; // Import CommonModule
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [FormsModule],  // Make sure FormsModule is imported here
+  imports: [FormsModule, CommonModule],  // Make sure CommonModule is included here
 })
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  error: string = '';
+  
 
-  constructor(private http: HttpClient,private snackBar: MatSnackBar) {}
+  constructor(private http: HttpClient) {}
 
   onSubmit() {
     const loginData = {
-        email: this.email, // Assuming you have these properties bound to your form inputs
-        password: this.password
+      email: this.email,
+      password: this.password
     };
 
+    if(this.email===""){
+      this.error = "you must enter an email";
+    }else if(this.password===""){
+      this.error = "you must enter password";
+    }
+    else{
+
+    
     this.http.post('http://localhost:8080/auth/login', loginData).subscribe(
-      token => {
-        console.log('token:', token)
+      (response) => {
+        console.log('Login successful!', response);
         this.email = '';
         this.password = '';
-
-        // You can store the token and navigate to another page
+        this.error = 'Login successful!';
       },
-        error => {
-            this.showErrorToast(error.message || 'Login failed. Please try again.');
-            this.email = '';
-            this.password = '';
-
-        }
+      error => {
+        console.error('Error occurred:', error);
+        this.email = '';
+        this.password = '';
+        this.error = error.error;
+      }
     );
-}
-private showErrorToast(message: string) {
-  this.snackBar.open(message, 'Close', {
-    duration: 3000, // Duration in milliseconds
-    verticalPosition: 'top', // You can change it to 'bottom'
-    horizontalPosition: 'center' // You can change it to 'start' or 'end'
-  });
+  }
 }
 }

@@ -83,10 +83,13 @@ form .content{
   align-items: center;
   justify-content: space-around;
 }
-form .content .checkbox{
+form .checkbox {
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+
+form .checkbox input {
+  margin-left: 10px; /* Adjust the spacing as needed */
 }
 form .content input{
   width: 15px;
@@ -128,4 +131,9 @@ form .signup-link a{
 form .pass-link a:hover,
 form .signup-link a:hover{
   text-decoration: underline;
+}
+.error-message {
+  color: purple; /* Change the color to purple */
+  font-size: 14px;
+  margin-top: 10px;
 }

@@ -1,1 +1,47 @@
-<p>signup works!</p>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Login Form Design | CodeLab</title>
+      <link rel="stylesheet" href="../login/login.component.css">
+   </head>
+   <body>
+    <div class="wrapper">
+        <div class="title">Sign Up</div>
+        <form (ngSubmit)="onSubmit()" #signUpForm="ngForm">
+          <div class="field">
+            <input type="text" required [(ngModel)]="firstName" name="firstName" placeholder="First Name" />
+          </div>
+          <div class="field">
+            <input type="text" required [(ngModel)]="lastName" name="lastName" placeholder="Last Name" />
+          </div>
+          <div class="field">
+            <input type="email" required [(ngModel)]="email" name="email" placeholder="Email" />
+          </div>
+          <div class="field">
+            <input type="text" required [(ngModel)]="title.name" name="title" placeholder="title"/>
+          </div>
+          <div class="field">
+            <input type="text" required [(ngModel)]="title.department.name" name="department" placeholder="department"/>
+          </div>
+          <div class="field">
+            <input type="text" required [(ngModel)]="managerEmail" name="managerEmail" placeholder="Manager Email"/>
+          </div>
+          <div class="content">
+            <div class="checkbox">
+                <label for="Manager">Manager</label>
+              <input type="checkbox" required [(ngModel)]="title.isManager" name="isManager"> 
+            </div>
+          </div>
+          <div class="field">
+            <input type="submit" value="Sign Up" />
+          </div>
+          <div class="signup-link">
+            <div *ngIf="error" class="error-message">{{ error }}</div> 
+          </div>
+        </form>
+      </div>
+      
+       
+    </body>
+</html>
