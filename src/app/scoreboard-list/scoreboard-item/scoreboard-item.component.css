@@ -1,0 +1,36 @@
+.score-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    background-color: rgb(226, 223, 223);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.score-item img {
+    border-radius: 50%; 
+    width: 50px;
+    height: 50px;
+}
+
+.name, .position, .score, .score-level, .rank {
+    flex: 1; 
+    text-align: center; 
+    font-size: 1.2em;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.position, .score, .score-level {
+    color: #5abdab;
+}
+
+.score-level {
+    background-color:#db1f8c; 
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: black; 
+}
