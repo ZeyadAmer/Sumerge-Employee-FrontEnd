@@ -20,23 +20,24 @@
         </header>
         <div class="content">
             <div class="textBox">
-                <h2>Welcome to <span>Sumerge's Platform</span></h2>
+              <h2>{{ currentText1 }}<span>{{ currentText2 }}</span></h2>
             </div>    
-                <div class="imageBox">
-                    <img class="platform" src="platform3.png">
-                </div>
+            <div class="imageBox">
+              <img class="platform" [src]="currentImage" alt="Selected Platform">
             </div>
-            <ul class="thumb">
-                <li>
-                    <img src="platform3.png">
-                </li>
-                <li>
-                    <img src="package2.png">
-                </li>
-                <li>
-                    <img src="learning2.png">
-                </li>
-            </ul>
+          </div>
+          
+          <ul class="thumb">
+            <li (click)="changeImage('platform3.png')">
+              <img src="platform3.png" alt="Platform 3">
+            </li>
+            <li (click)="changeImage('package2.png')">
+              <img src="package2.png" alt="Package 2">
+            </li>
+            <li (click)="changeImage('learning2.png')">
+              <img src="learning2.png" alt="Learning 2">
+            </li>
+          </ul>
     </section>
     
     <section class="scoreboard">

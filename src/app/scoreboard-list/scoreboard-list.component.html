@@ -1,3 +1,12 @@
+<!-- scoreboard-list.component.html -->
 <ul class="score-list">
-    <app-scoreboard-item></app-scoreboard-item>
+  <app-scoreboard-item 
+    *ngFor="let user of users"
+    [rank]="user.rank"
+    [profilePicture]="user.profilePicture"
+    [name]="user.name"
+    [position]="user.position"
+    [score]="user.score"
+    [scoreLevel]="user.scoreLevel">
+  </app-scoreboard-item>
 </ul>
