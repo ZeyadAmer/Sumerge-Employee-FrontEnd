@@ -1,0 +1,15 @@
+
+.score-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.scoreboard-background::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scoreboard-background::-webkit-scrollbar-thumb {
+    background-color: #5abdab;
+    border-radius: 10px;
+}
