@@ -33,12 +33,10 @@ export class UserCarouselComponent {
   constructor(private authService: AuthService){}
 
   async ngOnInit() {
-    await this.authService.retrieveUserLearning();
-
-    this.users = this.authService.users;
+    // Wait for the promise to resolve and assign the users array
+    this.users = await this.authService.retrieveUserLearning();
     this.splitUsers();
     this.generateSlides();
-    
   }
 
   splitUsers() {

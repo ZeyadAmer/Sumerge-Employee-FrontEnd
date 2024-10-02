@@ -23,8 +23,7 @@ constructor(private authService: AuthService) {}
 
 async ngOnInit() {
   await this.authService.retrieveUserLearning();
-  this.users = this.authService.users;
-}
+  this.users = await this.authService.retrieveUserLearning();}
 
 
 
