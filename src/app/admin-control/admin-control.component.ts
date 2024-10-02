@@ -36,7 +36,7 @@ export class AdminControlComponent {
 
   onSubmitAddScoreboardLevel() {
 
-    // change file names accordingly
+    // change file names accordingly --> create a backend request to send the files and create a folder with the new scoreboard level
     const image1Rename = '1.png'; 
     const image2Rename = '2.png';
     const lineImageRename = 'line.png';

@@ -84,19 +84,25 @@
     transform: translateY(-50%);
     width: 100px; 
     height: 100px;
-    border-radius: 50%;
+    border-radius: 50%; /* Circular shape */
     background-color: transparent;
-    border: 2px solid #000; 
+    border: 2px solid #ffffff; /* Border around the circle */
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden; /* Ensures the zoomed image doesn't overflow the circle */
     z-index: 2; 
 }
 
 .start-finish-circle img {
-    width: 100%;
-    height: auto;
+    width: 100%; /* Fill the width of the circle */
+    height: auto; /* Maintain aspect ratio */
+    transform: scale(1.2); /* Adjust the scale factor to zoom in */
+    transform-origin: center; /* Scale from the center */
+    /* Optionally you can set height to cover the circle */
+    /* height: 100%; */
 }
+
 
 .start {
     left: 0; 
