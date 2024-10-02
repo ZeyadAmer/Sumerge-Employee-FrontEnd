@@ -14,7 +14,7 @@ interface TitleDTO {
 })
 export class SignUpComponent {
   error: string = '';
-  managerEmail: String = '';
+  managerEmail: String = null!;
   firstName: string = '';
   lastName: string = '';
   email: string = '';

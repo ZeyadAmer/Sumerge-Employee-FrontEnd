@@ -7,4 +7,26 @@ export interface User {
     score: number;
     scoreLevel: string;
   }
-  
+  export interface Score {
+    id: number;
+    score: number;
+  }
+
+  export interface UserDTO {
+    firstName: string;
+    lastName: string;
+    title: {
+      name:string,
+      Department:{
+        name:string
+      },
+      isManager:boolean
+
+    };
+    email: string;
+
+  }
+  export interface LevelName {
+    id: number;
+    score: number;
+  }

@@ -133,7 +133,7 @@ form .signup-link a:hover{
   text-decoration: underline;
 }
 .error-message {
-  color: purple; /* Change the color to purple */
+  color: red; /* Change the color to purple */
   font-size: 14px;
   margin-top: 10px;
 }
