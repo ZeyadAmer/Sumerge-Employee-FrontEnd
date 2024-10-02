@@ -1,22 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { User } from '../../scoreboard-list/user.model';
+import { AuthService } from '../../services/auth.service';
+import { ScoreboardListComponent } from '../../scoreboard-list/scoreboard-list.component';
 
 @Component({
   selector: 'app-user-carousel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,ScoreboardListComponent],
   templateUrl: './user-carousel.component.html',
   styleUrl: './user-carousel.component.css'
 })
 export class UserCarouselComponent {
   numberOfSlides: number = 4; // Adjust this number as needed
   users: User[] = [
-    // Sample users
-    { rank: 1, profilePicture: 'user1.png', name: 'Alice', position: 'Player', score: 50, scoreLevel: 'Explorer' },
-    { rank: 2, profilePicture: 'user2.png', name: 'Bob', position: 'Player', score: 70, scoreLevel: 'Dynamo' },
-    { rank: 3, profilePicture: 'user3.png', name: 'Charlie', position: 'Player', score: 90, scoreLevel: 'Pioneer' },
-    // Add more users as needed
+        // Sample users
+        { rank: 1, profilePicture: 'user1.png', name: 'Alice', position: 'Player', score: 50, scoreLevel: 'Explorer' },
+        { rank: 2, profilePicture: 'user2.png', name: 'Bob', position: 'Player', score: 70, scoreLevel: 'Dynamo' },
+        { rank: 3, profilePicture: 'user3.png', name: 'Charlie', position: 'Player', score: 90, scoreLevel: 'Pioneer' },
+        // Add more users as needed
   ];
 
   scoreboardLevels = ["Explorer", "Dynamo", "Pioneer", "Legend", "Guru"]; // Define your levels here
@@ -28,10 +30,15 @@ export class UserCarouselComponent {
   endImage: string = "2.png";
   overlayImage: string = "line.png";
   maxScore: number = 100; // Assuming max score is 100 for scaling
+  constructor(private authService: AuthService){}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this.authService.retrieveUserLearning();
+
+    this.users = this.authService.users;
     this.splitUsers();
     this.generateSlides();
+    
   }
 
   splitUsers() {
