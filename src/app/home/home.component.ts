@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ScoreboardListComponent } from '../scoreboard-list/scoreboard-list.component';
 import { I } from '@angular/cdk/keycodes';
+import { UserCarouselComponent } from "./user-carousel/user-carousel.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ScoreboardListComponent],
+  imports: [ScoreboardListComponent, UserCarouselComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

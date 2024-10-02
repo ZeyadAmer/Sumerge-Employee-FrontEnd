@@ -154,11 +154,80 @@ header ul li a {
     overflow-y: auto; 
 }
 
-
-.journey-map{
-    background-color: #5abdab;
-}
-
 .journey-map .textBox h2 span{
     color: #383074;
 }
+
+.journey-map {
+    background-color: #5abdab;
+}
+
+.journey-map .content {
+    display: flex; /* Ensure children are in a row */
+    justify-content: space-between; /* Space them out */
+    align-items: center; /* Align items vertically */
+}
+
+.journey-map .textBox {
+    flex: 1; /* Allow the textBox to take up available space */
+    max-width: 600px; /* Set a max-width to maintain size */
+}
+
+.carousel-container {
+    flex: 1; /* Allow the carousel to take up available space */
+    display: flex; /* Optional: Center carousel */
+    justify-content: center; /* Center the carousel if needed */
+    align-items: center; /* Align items vertically */
+}
+
+/* Optional: If you want to limit the size of the carousel */
+.carousel-container app-user-carousel {
+    max-width: 100%; /* Adjust as necessary */
+    width: 100%; /* Make it responsive */
+}
+
+.journey-map {
+    position: relative; /* Ensure positioning for child elements */
+    background-color: #5abdab; /* Optional: Keep the background color */
+}
+
+.white-div {
+    position: absolute; /* Positioning it absolutely within the section */
+    top: 50%; /* Move to the middle vertically */
+    left: 50%; /* Move to the middle horizontally */
+    width: 100%; /* Full width */
+    height: 50%; /* Set height to 50% of the section */
+    background-color: white; /* White background */
+    z-index: 0; /* Place it behind other content */
+    transform: translate(-50%, -50%); /* Center the div */
+}
+
+
+/* Ensure content is positioned above the white div */
+.content {
+    position: relative; /* Keep the content in relation to the white div */
+    z-index: 1; /* Ensure it is above the white div */
+    display: flex; /* Ensure children are in a row */
+    justify-content: space-between; /* Space them out */
+    align-items: center; /* Align items vertically */
+    padding: 100px; /* Add padding to prevent overlap with the white div */
+}
+
+.content .textBox {
+    flex: 1; /* Allow the textBox to take up available space */
+    max-width: 600px; /* Set a max-width to maintain size */
+}
+
+.carousel-container {
+    flex: 1; /* Allow the carousel to take up available space */
+    display: flex; /* Optional: Center carousel */
+    justify-content: center; /* Center the carousel if needed */
+    align-items: center; /* Align items vertically */
+}
+
+/* Optional: If you want to limit the size of the carousel */
+.carousel-container app-user-carousel {
+    max-width: 100%; /* Adjust as necessary */
+    width: 100%; /* Make it responsive */
+}
+

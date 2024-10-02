@@ -1,0 +1,42 @@
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button *ngFor="let slide of slides; let i = index" type="button" 
+              [attr.data-bs-target]="'#carouselExampleIndicators'" 
+              [attr.data-bs-slide-to]="i" 
+              [class.active]="i === 0" 
+              [attr.aria-label]="getLevel(i + 1)"></button>
+    </div>
+  
+    <div class="carousel-inner">
+      <div *ngFor="let slide of slides; let i = index" class="carousel-item" [class.active]="i === 0">
+        <div class="street-container">
+          <div class="overlay-image">
+            <img [src]="getLine(i)" alt="Overlay Image">
+          </div>
+          <div class="street-line">
+            <div class="start-finish-circle start">
+              <img [src]="getStartImage(i)" alt="Start" />
+            </div>
+            <div class="user-circle" *ngFor="let user of getUsers(getLevel(i + 1))" [ngStyle]="{'left': calculatePosition(user.score)}">
+              <img [src]="user.profilePicture" alt="{{user.name}}">
+              <span>{{ user.name }}</span>
+              <small>{{ user.position }}</small>
+            </div>
+            <div class="start-finish-circle finish">
+              <img [src]="getFinishImage(i)" alt="Finish" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  
