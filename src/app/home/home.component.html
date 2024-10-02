@@ -15,6 +15,7 @@
                 <li><a href="#">Learnings</a></li>
                 <li><a href="#">Career Package</a></li>
                 <li><a href="#">Scoreboard</a></li>
+                <li *ngIf="ifAdmin()"><a (click)="goToAdmin()">Admin Controls</a></li>
                 <li><a href="#">Profile</a></li>
             </ul>
         </header>

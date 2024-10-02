@@ -1,0 +1,60 @@
+<app-header></app-header>
+
+<div class="page-container">
+
+    <div class="form-container">
+        <h2>Add Scoreboard Level</h2>
+        <form class="score-form">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Scoreboard Level Name</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="scoreboardLevelName" name="scoreboardLevelName">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Minimum Score</span>
+                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="minScore" name="minScore">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Image 1</span>
+                <input type="file" class="form-control" id="inputGroupFile01" (change)="onFileChange($event, 'image1')" aria-describedby="inputGroupFileAddon01" aria-label="Upload">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Image 2</span>
+                <input type="file" class="form-control" id="inputGroupFile02" (change)="onFileChange($event, 'image2')" aria-describedby="inputGroupFileAddon01" aria-label="Upload">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Line Image</span>
+                <input type="file" class="form-control" id="inputGroupFile03" (change)="onFileChange($event, 'lineImage')" aria-describedby="inputGroupFileAddon01" aria-label="Upload">
+            </div>
+            <div class="button-container">
+                <button type="button" class="btn btn-primary btn-lg" (click)="onSubmitAddScoreboardLevel()">Add Scoreboard Level</button>
+            </div>
+        </form>
+    </div>
+    
+    
+    <div class="form-container">
+        <h2>Add Booster</h2>
+        <form class="score-form">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Booster Name</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="boosterName" name="boosterName">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Booster Type Name</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="boosterTypeName" name="boosterTypeName">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Booster Type Value</span>
+                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="boosterTypeValue" name="boosterTypeValue">
+            </div>
+            <div class="form-check form-switch switch-container">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [(ngModel)]="isActive" name="isActive">
+                <label class="form-check-label" for="flexSwitchCheckDefault">isActive</label>
+            </div>
+            <div class="button-container">
+                <button type="button" class="btn btn-primary btn-lg" (click)="onSubmitAddBooster()">Add Booster</button>
+            </div>
+        </form>
+    </div>
+    
+</div>

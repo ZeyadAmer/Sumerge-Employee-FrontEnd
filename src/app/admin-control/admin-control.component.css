@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+*{
+    font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    min-height: 100vh; /* Use min-height instead of height */
+    overflow-y: auto; /* Allow scrolling only if necessary */
+}
+
+header {
+    position: fixed; /* Change to fixed to keep it at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    z-index: 1000; /* Ensure the header stays above other elements */
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    background-color: #5abdab; /* Set the background color to red */
+    border-radius: 30px; /* Make the corners rounded */
+    padding: 20px; /* Add padding for better spacing */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Add some shadow for depth */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2d3286;
+}
+
+.score-form {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.switch-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #2d3286;
+    border: none;
+    border-radius: 30px;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+header .logo {
+    position: relative;
+    max-width: 150px;
+}
+
+header ul {
+    position: relative;
+    display: flex;
+}
+
+header ul li {
+    list-style: none;
+}
+
+header ul li a {
+    display: inline-block;
+    color: #333;
+    font-weight: 400;
+    margin-left: 40px;
+    text-decoration: none;
+}
+

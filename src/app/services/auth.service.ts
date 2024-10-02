@@ -77,5 +77,9 @@ export class AuthService {
   
     console.log('ScoreboardListComponent initialized with users:', this.users);
   }
+
+  //onn submit admin controls add booster
+
+  // on submit admin controls add scoreboard level
   
 }

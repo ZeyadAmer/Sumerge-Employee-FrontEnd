@@ -2,15 +2,19 @@ import { Component } from '@angular/core';
 import { ScoreboardListComponent } from '../scoreboard-list/scoreboard-list.component';
 import { I } from '@angular/cdk/keycodes';
 import { UserCarouselComponent } from "./user-carousel/user-carousel.component";
+import { CommonModule } from '@angular/common';
+import { Route, Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ScoreboardListComponent, UserCarouselComponent],
+  imports: [ScoreboardListComponent, UserCarouselComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+
+  constructor(private router: Router){}
 
   currentImage:string = 'platform3.png';
   currentText1: string = "Welcome to ";
@@ -26,5 +30,14 @@ export class HomeComponent {
     this.currentImage = image;
     this.currentText1 = this.imageTextMap[image].text1; 
     this.currentText2 = this.imageTextMap[image].text2; 
+  }
+
+  ifAdmin(): boolean{
+    // send request to backend tro get the tokena nd check if it is admin or no
+    return true;
+  }
+
+  goToAdmin() {
+    this.router.navigate(['/admin-controls']);
   }
 }
