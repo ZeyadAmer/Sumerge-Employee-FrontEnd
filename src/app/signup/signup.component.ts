@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 interface TitleDTO {
   name: string;
@@ -25,10 +26,10 @@ export class SignUpComponent {
   };
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private cookieService: CookieService) {}
 
   onSubmit() {
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6aGVzaGFtQHN1bWVyZ2UuY29tIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE3Mjc4NzUzNjgsInVzZXJJZCI6MiwiaWF0IjoxNzI3Nzg4OTY4fQ.s98S37iMdP9ANDlofc3FHmFqS6cU7yRe_eVnn6DJ318';
+    const token = this.cookieService.get('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

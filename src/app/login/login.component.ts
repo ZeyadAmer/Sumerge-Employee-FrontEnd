@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CookieService } from 'ngx-cookie-service'; 
 
 @Component({
   selector: 'app-login',
@@ -14,9 +15,10 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   error: string = '';
+  token: string = '';
   
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private cookieService: CookieService) {}
 
   onSubmit() {
     const loginData = {
@@ -32,9 +34,11 @@ export class LoginComponent {
     else{
 
     
-    this.http.post('http://localhost:8080/auth/login', loginData).subscribe(
+    this.http.post<{token:string}>('http://localhost:8080/auth/login', loginData).subscribe(
       (response) => {
-        console.log('Login successful!', response);
+        console.log(response.token);
+        this.token = response.token;
+        this.cookieService.set('authToken', this.token);
         this.email = '';
         this.password = '';
         this.error = 'Login successful!';

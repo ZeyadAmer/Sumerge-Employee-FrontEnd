@@ -4,6 +4,7 @@ import { ScoreboardItemComponent } from './scoreboard-item/scoreboard-item.compo
 import { User , Score, UserDTO } from './user.model'; // Import the User model
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -21,10 +22,10 @@ export class ScoreboardListComponent implements OnInit{
   rank: number = 1;
   scoreLevel: string="";
   
-constructor(private http: HttpClient) {}
+constructor(private http: HttpClient,private cookieService: CookieService) {}
 
 async ngOnInit() {
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZWxoZW1hbHlAc3VtZXJnZS5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcyNzk0ODAyMiwidXNlcklkIjo2LCJpYXQiOjE3Mjc4NjE2MjJ9.j9im6VIOj0LcxqySrgMJCAk15GyRmZmGxT0_EnKOzjI';
+  const token = this.cookieService.get('authToken');
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`
   });
