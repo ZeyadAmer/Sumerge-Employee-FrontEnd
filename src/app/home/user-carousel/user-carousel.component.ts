@@ -13,13 +13,7 @@ import { ScoreboardListComponent } from '../../scoreboard-list/scoreboard-list.c
 })
 export class UserCarouselComponent {
   numberOfSlides: number = 4; // Adjust this number as needed
-  users: User[] = [
-        // Sample users
-        { rank: 1, profilePicture: 'user1.png', name: 'Alice', position: 'Player', score: 50, scoreLevel: 'Explorer' },
-        { rank: 2, profilePicture: 'user2.png', name: 'Bob', position: 'Player', score: 70, scoreLevel: 'Dynamo' },
-        { rank: 3, profilePicture: 'user3.png', name: 'Charlie', position: 'Player', score: 90, scoreLevel: 'Pioneer' },
-        // Add more users as needed
-  ];
+  users: User[] = [];
 
   scoreboardLevels = ["Explorer", "Dynamo", "Pioneer", "Legend", "Guru"]; // Define your levels here
 
@@ -33,12 +27,10 @@ export class UserCarouselComponent {
   constructor(private authService: AuthService){}
 
   async ngOnInit() {
-    await this.authService.retrieveUserLearning();
-
-    this.users = this.authService.users;
+    // Wait for the promise to resolve and assign the users array
+    this.users = await this.authService.retrieveUserLearning();
     this.splitUsers();
     this.generateSlides();
-    
   }
 
   splitUsers() {

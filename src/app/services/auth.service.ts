@@ -9,14 +9,13 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class AuthService {
-  users: User[] = [];
   userScores: Score[] = [];
   rank: number = 1;
   scoreLevel: string="";
   constructor(private http: HttpClient,private cookieService: CookieService) { }
 
-  async retrieveUserLearning() {
-    this.users = [];
+  async retrieveUserLearning(): Promise<User[]> {
+    const users: User[] = [];
     const token = this.cookieService.get('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -30,7 +29,6 @@ export class AuthService {
       console.log(this.userScores);
   
       // Initialize users array and rank
-      this.users = [];
       this.rank = 1; // Adjust starting rank as needed
   
       // Fetch user details and levels in order
@@ -56,7 +54,8 @@ export class AuthService {
           }
           console.log('User details:', userResponse);
   
-          const user = {
+          // Create a user object with rank, profile, and other details
+          const user: User = {
             rank: this.rank,
             profilePicture: 'https://via.placeholder.com/50',
             name: `${userResponse.firstName} ${userResponse.lastName}`,
@@ -65,7 +64,8 @@ export class AuthService {
             scoreLevel: scoreLevel 
           };
   
-          this.users.push(user);
+          // Add user to the users array
+          users.push(user);
           this.rank++;
         } catch (error) {
           console.error('Error occurred while fetching level name or user:', error);
@@ -75,11 +75,13 @@ export class AuthService {
       console.error('Error occurred while fetching scores:', error);
     }
   
-    console.log('ScoreboardListComponent initialized with users:', this.users);
+    console.log('ScoreboardListComponent initialized with users:', users);
+    return users; // Return the array of users
   }
 
   //onn submit admin controls add booster
 
   // on submit admin controls add scoreboard level
+  
   
 }
