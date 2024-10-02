@@ -22,9 +22,5 @@ export class ScoreboardListComponent implements OnInit{
 constructor(private authService: AuthService) {}
 
 async ngOnInit() {
-  await this.authService.retrieveUserLearning();
   this.users = await this.authService.retrieveUserLearning();}
-
-
-
 }
