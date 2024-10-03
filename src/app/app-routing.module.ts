@@ -4,15 +4,13 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { AdminControlComponent } from './admin-control/admin-control.component';
-import { AdminControlsSectionComponent } from './admin-controls-section/admin-controls-section.component';
 
 export const routes: Routes = [ // Add 'export' here
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'admin-controls', component: AdminControlComponent},
-  { path: 'admin', component: AdminControlsSectionComponent}
+  { path: 'admin-controls', component: AdminControlComponent}
 ];
 
 @NgModule({
