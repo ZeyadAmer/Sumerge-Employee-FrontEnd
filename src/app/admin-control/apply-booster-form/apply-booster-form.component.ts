@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActiveBooster, boosterForm } from '../admin-controls.model';
 import { CommonModule } from '@angular/common';
 import { ActiveBoosterComponent } from "./active-booster/active-booster.component";
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service'; 
 @Component({
   selector: 'app-apply-booster-form',
   standalone: true,
@@ -16,24 +17,64 @@ export class ApplyBoosterFormComponent {
   applyActiveBoosterForm: FormGroup;
 
   // GET REQUEST FROMBACKEND TO GET THE BOOSTER THEN ADD 
-  applyActiveBooster: ActiveBooster[] = [
-    { name: 'Booster 1', isActive: false },
-    { name: 'Booster 2', isActive: true },
-    { name: 'Booster 3', isActive: true }
-    // Add more boosters as needed
-  ];
+  applyActiveBooster: ActiveBooster[] = [];
+  responseBooster: boosterForm[] = [];
+ 
 
-    constructor(private router: Router, private fb: FormBuilder) {
+    constructor(private router: Router, private fb: FormBuilder,private http: HttpClient,private cookieService: CookieService) {
     this.applyActiveBoosterForm = this.fb.group({
       boosterName: ['', Validators.required],
       isActive: [false],
     });
   }
 
+  ngOnInit() {
+    const token = this.cookieService.get('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
+    this.http.get<any[]>('http://localhost:8081/boosters/all', { headers }).subscribe(
+      (response) => {
+        this.responseBooster = response;
+        this.applyActiveBooster = response.map((booster) => ({
+          name: booster.name,
+          isActive: booster.active
+        }));
+
+        console.log(this.responseBooster); // To check the transformed data
+      },
+      (error) => {
+        console.error('Error occurred:', error);
+      }
+    );
+  }
+
+ 
 
   onSubmitApplyActiveBooster(){
-      // post request
+    const token = this.cookieService.get('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const updatedActiveBoosters = this.applyActiveBooster.map((activeBooster) => {
+      const correspondingBooster = this.responseBooster.find((booster) => booster.name === activeBooster.name);
+      return {
+        name: activeBooster.name,
+        isActive: correspondingBooster ? correspondingBooster.isActive : activeBooster.isActive
+      };
+    });
+    this.http.put<{updateBoosterActivity: string}>('http://localhost:8081/boosters/updateBoosterActivity',this.responseBooster, { headers }).subscribe(
+      (response) => {
+        console.log(this.applyActiveBooster);
+        console.log(this.responseBooster);
+        console.log(response.updateBoosterActivity); // To check the transformed data
+      },
+      (error) => {
+        console.error('Error occurred:', error);
+      }
+    );
+
   }
 
   // // active booster

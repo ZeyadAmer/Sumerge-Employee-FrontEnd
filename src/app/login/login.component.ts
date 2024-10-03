@@ -54,4 +54,3 @@ export class LoginComponent {
 }
 }
 
-//for logout use this.cookieService.delete('authToken');
