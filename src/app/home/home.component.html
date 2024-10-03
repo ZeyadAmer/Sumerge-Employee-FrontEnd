@@ -13,18 +13,12 @@
         <header>
           <a href="#"><img src="logo.jpg" class="logo"></a>
           <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Learnings</a></li>
-              <li><a href="#">Career Package</a></li>
-              <li><a href="#">Scoreboard</a></li>
-              <li *ngIf="ifAdmin()"><a (click)="goToAdmin()">Admin Controls</a></li>
-              <li class="dropdown">
-                  <a href="#" class="dropbtn">Profile <i class="fas fa-caret-down"></i></a>
-                  <div class="dropdown-content">
-                      <a href="#">View Profile</a>
-                      <a href="#">Logout</a>
-                  </div>
-              </li>
+            <li><a (click)="goToHome()">Home</a></li>
+            <li><a>Learnings</a></li>
+            <li><a>Career Package</a></li>
+            <li *ngIf="ifAdmin()"><a (click)="goToAdmin()">Admin Controls</a></li>
+            <li><a>Profile</a></li>
+            <li><a (click)="onClickLogout()">Logout</a></li>
           </ul>
       </header>
       

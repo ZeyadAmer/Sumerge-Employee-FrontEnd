@@ -13,11 +13,6 @@ import { ScoreboardListComponent } from '../../scoreboard-list/scoreboard-list.c
 })
 export class UserCarouselComponent {
 
-  // BACKEND HERE GET REQUEST LIST OF SCOREBOARD LEVELS .LENGTH CHANGE HERE ///////////////////////////////////
-
-  // BACKNED HERE TOO AFTER THE GET REQUEST UPDATE THE SCOREBOARD LEVELS HERE --> NAMES, FOR LOOP .PUSH(NAME OF SCOREBOARD LEVEL) (men nfs el backend request that changed el number) //////////////
-
-
   slides: any[] = [];
   userLevels: { [key: string]: User[] } = {}; 
 

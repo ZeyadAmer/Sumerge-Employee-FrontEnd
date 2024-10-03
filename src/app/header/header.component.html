@@ -2,12 +2,14 @@
     <header>
         <a href="#"><img src="logo.jpg" class="logo"></a>
         <ul>
-            <li><a (click)="goToHome()">Home</a></li>
-            <li><a href="#">Learnings</a></li>
-            <li><a href="#">Career Package</a></li>
-            <li><a href="#">Scoreboard</a></li>
-            <li *ngIf="ifAdmin()"><a (click)="goToAdmin()">Admin Controls</a></li>
-            <li><a href="#">Profile</a></li>
+            <ul>
+                <li><a (click)="goToHome()">Home</a></li>
+                <li><a>Learnings</a></li>
+                <li><a>Career Package</a></li>
+                <li *ngIf="ifAdmin()"><a (click)="goToAdmin()">Admin Controls</a></li>
+                <li><a>Profile</a></li>
+                <li><a (click)="onClickLogout()">Logout</a></li>
+            </ul>
         </ul>
     </header>
 </section>

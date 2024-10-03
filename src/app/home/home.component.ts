@@ -52,4 +52,13 @@ export class HomeComponent {
   goToAdmin() {
     this.router.navigate(['/admin-controls']);
   }
+
+
+  goToHome(){
+    this.router.navigate(['/home']);
+  }
+
+  onClickLogout(){
+    this.authService.logout();
+  }
 }

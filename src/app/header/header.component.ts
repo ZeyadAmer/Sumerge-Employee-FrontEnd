@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private authService: AuthService){}
 
   ifAdmin(): boolean{
     // send request to backend tro get the tokena nd check if it is admin or no
@@ -24,5 +25,9 @@ export class HeaderComponent {
 
   goToHome(){
     this.router.navigate(['/home']);
+  }
+
+  onClickLogout(){
+    this.authService.logout();
   }
 }

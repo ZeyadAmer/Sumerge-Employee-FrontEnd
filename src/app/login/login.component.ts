@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [FormsModule, CommonModule],  // Make sure CommonModule is included here
+  imports: [FormsModule, CommonModule], 
 })
 export class LoginComponent {
   email: string = '';
@@ -18,7 +19,7 @@ export class LoginComponent {
   token: string = '';
   
 
-  constructor(private http: HttpClient,private cookieService: CookieService) {}
+  constructor(private http: HttpClient,private cookieService: CookieService, private router: Router) {}
 
   onSubmit() {
     const loginData = {
@@ -32,7 +33,6 @@ export class LoginComponent {
       this.error = "you must enter password";
     }
     else{
-
     
     this.http.post<{token:string}>('http://localhost:8080/auth/login', loginData).subscribe(
       (response) => {
@@ -42,6 +42,7 @@ export class LoginComponent {
         this.email = '';
         this.password = '';
         this.error = 'Login successful!';
+        this.router.navigate(['/home']);
       },
       error => {
         console.error('Error occurred:', error);

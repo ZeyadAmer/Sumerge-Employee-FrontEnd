@@ -4,6 +4,7 @@ import { User , Score, UserDTO, ScoreboardLevel } from '../scoreboard-list/user.
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,11 @@ export class AuthService {
   scoreboardLevels: string[] = [];
     scoreLevel: string="";
   users: User[] = [];
-  constructor(private http: HttpClient,private cookieService: CookieService) { }
+  constructor(private http: HttpClient,private cookieService: CookieService, private router:Router) {}
 
-
-   logout(){
+  logout(){
     this.cookieService.delete('authToken');
-
+    this.router.navigate(['/login']);
    }
 async retrieveNumberOfSlides():Promise<number>{
   try {
@@ -66,10 +66,6 @@ return this.scoreboardLevels;
       'Authorization': `Bearer ${token}`
     });
     
- 
-    
-    
-  
     try {
       const response = await this.http.get<Score[]>("http://localhost:8081/userScores/all", { headers }).toPromise();
       
@@ -127,10 +123,5 @@ return this.scoreboardLevels;
     console.log('ScoreboardListComponent initialized with users:', this.users);
     return this.users;
   }
-
-  //onn submit admin controls add booster
-
-  // on submit admin controls add scoreboard level
-  
   
 }
