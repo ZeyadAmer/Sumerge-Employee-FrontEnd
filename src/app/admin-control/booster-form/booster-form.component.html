@@ -1,5 +1,5 @@
 <div class="form-container">
-    <h2>Add Booster</h2>
+    <h2>Add New Booster</h2>
     <form [formGroup]="boosterForm" class="booster-form" (ngSubmit)="onSubmitAddBooster()">
         <div class="input-group input-group-sm mb-3">
             <span class="input-group-text" id="inputGroup-sizing-sm">Booster Name</span>
@@ -15,7 +15,7 @@
         </div>
         <div class="form-check form-switch switch-container">
             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" formControlName="isActive">
-            <label class="form-check-label" for="flexSwitchCheckDefault">isActive</label>
+            <label class="form-check-label" for="flexSwitchCheckDefault">Active</label>
         </div>
         <div class="button-container">
             <button type="submit" class="btn btn-primary btn-lg">Add Booster</button>

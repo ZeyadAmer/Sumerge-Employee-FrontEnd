@@ -25,7 +25,13 @@ export interface File {
     size: number;
   }
   
-  export interface Folder {
-    name: string;
-    files: File[];
-  }
+export interface Folder {
+name: string;
+files: File[];
+}
+
+export interface TitleDTO {
+name: string;
+department: { name: string };
+isManager: boolean;
+}  

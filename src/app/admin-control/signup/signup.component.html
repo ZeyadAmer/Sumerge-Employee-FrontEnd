@@ -1,0 +1,47 @@
+<div class="form-container">
+    <h2>Add New User</h2>
+    <form class="signup-form" (ngSubmit)="onSubmit()" #signUpForm="ngForm">
+
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">First Name</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required [(ngModel)]="firstName" name="firstName" placeholder="First Name">
+        </div>
+
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Last Name</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required [(ngModel)]="lastName" name="lastName" placeholder="Last Name">
+        </div>
+
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
+            <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="email" name="email" placeholder="Email">
+        </div>
+
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Title</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="title.name" name="title" placeholder="title">
+        </div>
+
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Department</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="title.department.name" name="department" placeholder="department">
+        </div>
+
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Manager Email</span>
+            <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="managerEmail" name="managerEmail" placeholder="Manager Email">
+        </div>
+
+        <div class="form-check form-switch switch-container">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" formControlName="isActive" [(ngModel)]="title.isManager" name="isManager">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Manager</label>
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary btn-lg">Add User</button>
+        </div>
+
+        <div *ngIf="error" class="text-danger error-message">{{ error }}</div>
+
+    </form>
+</div>

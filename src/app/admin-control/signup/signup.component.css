@@ -1,33 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-*{
+* {
     font-family: "Outfit", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: weight;
-  font-style: normal;
+    font-optical-sizing: auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff; /* Changed to match form container's text color */
 }
 
 .form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
-    background-color: #5abdab; /* Set the background color to red */
-    border-radius: 30px; /* Make the corners rounded */
-    padding: 20px; /* Add padding for better spacing */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.774); /* Optional: Add some shadow for depth */
-}
-
-h2 {
-    text-align: center;
+    width: 100%; /* Adjusted to take full width */
+    max-width: 700px; /* Set maximum width */
     margin-bottom: 20px;
-    color: #2d3286;
+    border-radius: 15px;
+    background: linear-gradient(to bottom, #302f7f 20%, #5abdab 50%);
+    padding: 20px;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
 }
 
-.score-form {
+.signup-form {
     width: 100%;
-    padding: 20px;
+    padding: 55px; /* Increased padding for more space inside the form */
     box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better visibility */
+    border-radius: 15px;
 }
 
 .input-group {
@@ -72,13 +74,13 @@ header {
 }
 
 header .logo {
-    position: relative;
     max-width: 150px;
 }
 
 header ul {
-    position: relative;
     display: flex;
+    padding: 0; /* Added to remove default padding */
+    margin: 0; /* Added to remove default margin */
 }
 
 header ul li {
@@ -93,32 +95,21 @@ header ul li a {
     text-decoration: none;
 }
 
-.form-container {
-    position: relative;
-    padding: 20px;
-    width: 100%;
-    max-width: 700px;
-    margin-bottom: 20px;
-    border-radius: 15px;
-    background: linear-gradient(to bottom, #302f7f 20%, #5abdab 50%); /* Top color to bottom color */
-    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-container h2 {
-    color: #fff;
-    text-align: center;
-  }
-  
-  .form-container .score-form {
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for content */
-    border-radius: 15px;
-  }
-
-  .text-danger {
+.text-danger {
     color: red;
     font-size: 0.875rem; /* Smaller font size for error messages */
     margin-top: 0.25rem; /* Space above the error messages */
 }
 
+.text-danger {
+    color: red;
+    font-size: 0.875rem; /* Smaller font size for error messages */
+    margin-top: 0.25rem; /* Space above the error messages */
+    text-align: center; /* Center the text */
+}
+
+.error-message {
+    width: 100%; /* Ensure it takes full width of the form */
+    margin-top: 10px; /* Add some margin for spacing */
+}
 
