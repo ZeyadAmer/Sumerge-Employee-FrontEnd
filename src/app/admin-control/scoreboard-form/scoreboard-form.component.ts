@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router } from '@angular/router';
 import { scoreboard } from '../admin-controls.model';
 import { SCROLL_LOCK } from '@angular/cdk/keycodes';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service'
 @Component({
   selector: 'app-scoreboard-form',
   standalone: true,
@@ -15,7 +16,7 @@ import { SCROLL_LOCK } from '@angular/cdk/keycodes';
 export class ScoreboardFormComponent {
   scoreboardLevelForm: FormGroup;
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(private router: Router, private fb: FormBuilder,private http: HttpClient,private cookieService: CookieService) {
 
     this.scoreboardLevelForm = this.fb.group({
       scoreboardLevelName: ['', Validators.required],
@@ -29,6 +30,10 @@ export class ScoreboardFormComponent {
   ngOnInit() {}
 
   onSubmitAddScoreboardLevel() {
+    const token = this.cookieService.get('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
     if (this.scoreboardLevelForm.valid) {
       const formData = this.scoreboardLevelForm.value;
   
@@ -48,11 +53,19 @@ export class ScoreboardFormComponent {
         lineImage: lineImageFile,
       });
 
-      // SEND THIS TO THE BACKEND AND CREATE A NEW SCOREBAORD LEVEL ////////////////////////////////////////////////////
+      // input levelName and minScore and post to the backend
       const scoreboardForm: scoreboard = {
           levelName: this.scoreboardLevelForm.value.scoreboardLevelName,
           minScore: this.scoreboardLevelForm.value.minScore
       }
+      this.http.post<{created:string}>('http://localhost:8081/scoreboardLevels',scoreboardForm ,{ headers }).subscribe(
+        (response) => {
+          console.log(response.created);
+        },
+        (error) => {
+          console.error('Error occurred:', error);
+        }
+      );
 
       console.log("SENT SCOREBAORD: ", scoreboardForm);
 

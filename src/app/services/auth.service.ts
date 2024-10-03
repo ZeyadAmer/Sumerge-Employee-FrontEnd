@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ScoreboardItemComponent } from '../scoreboard-list/scoreboard-item/scoreboard-item.component';
-import { User , Score, UserDTO } from '../scoreboard-list/user.model'; // Import the User model
+import { User , Score, UserDTO, ScoreboardLevel } from '../scoreboard-list/user.model'; // Import the User model
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
@@ -11,7 +11,9 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthService {
   userScores: Score[] = [];
   rank: number = 1;
-  scoreLevel: string="";
+  numberOfSlides: number = 1;
+  scoreboardLevels: string[] = [];
+    scoreLevel: string="";
   users: User[] = [];
   constructor(private http: HttpClient,private cookieService: CookieService) { }
 
@@ -20,12 +22,53 @@ export class AuthService {
     this.cookieService.delete('authToken');
 
    }
+async retrieveNumberOfSlides():Promise<number>{
+  try {
+    const token = this.cookieService.get('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    
+    const response = await this.http.get<{ levels: number; }>("http://localhost:8081/scoreboardLevels/count", { headers }).toPromise();
+    console.log(response?.levels);
+    this.numberOfSlides = response?.levels ?? 1; 
+} catch (error) {
+    console.error('Error fetching levels:', error);
+    this.numberOfSlides = 1; 
+}
+return this.numberOfSlides;
+}
+async retrieveScoreBoardLevels():Promise<string[]>{
+  const token = this.cookieService.get('authToken');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+  
+  try {
+    const response = await this.http.get<ScoreboardLevel[]>("http://localhost:8081/scoreboardLevels/all", { headers }).toPromise();
+
+    if (response && Array.isArray(response)) {
+      this.scoreboardLevels = response.map(level => level.levelName);
+  } else {
+      console.warn('Response is not defined or is not an array:', response);
+  }
+    console.log(this.scoreboardLevels); // Log the extracted level names
+} catch (error) {
+    console.error('Error fetching scoreboard levels:', error);
+}
+return this.scoreboardLevels;
+}
+
   async retrieveUserLearning(): Promise<User[]> {
     this.users = [];
     const token = this.cookieService.get('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+    
+ 
+    
+    
   
     try {
       const response = await this.http.get<Score[]>("http://localhost:8081/userScores/all", { headers }).toPromise();
@@ -82,7 +125,7 @@ export class AuthService {
     }
   
     console.log('ScoreboardListComponent initialized with users:', this.users);
-    return this.users; // Return the array of users
+    return this.users;
   }
 
   //onn submit admin controls add booster

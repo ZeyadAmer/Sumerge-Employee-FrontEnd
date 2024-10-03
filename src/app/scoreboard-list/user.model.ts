@@ -30,3 +30,8 @@ export interface User {
     id: number;
     score: number;
   }
+  export interface ScoreboardLevel {
+    id: number;
+    levelName: string;
+    minScore: number;
+}

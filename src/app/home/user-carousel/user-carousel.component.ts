@@ -14,11 +14,9 @@ import { ScoreboardListComponent } from '../../scoreboard-list/scoreboard-list.c
 export class UserCarouselComponent {
 
   // BACKEND HERE GET REQUEST LIST OF SCOREBOARD LEVELS .LENGTH CHANGE HERE ///////////////////////////////////
-  numberOfSlides: number = 4; // Adjust this number as needed 
 
   // BACKNED HERE TOO AFTER THE GET REQUEST UPDATE THE SCOREBOARD LEVELS HERE --> NAMES, FOR LOOP .PUSH(NAME OF SCOREBOARD LEVEL) (men nfs el backend request that changed el number) //////////////
 
-  scoreboardLevels = ["Explorer", "Dynamo", "Pioneer", "Legend", "Guru"]; 
 
   slides: any[] = [];
   userLevels: { [key: string]: User[] } = {}; 
@@ -29,10 +27,19 @@ export class UserCarouselComponent {
   maxScore: number = 100; 
   constructor(private authService: AuthService){}
   @Input() users!: User[] ;
+  @Input() numberOfSlides!:number;
+  @Input() scoreboardLevels!: string[] ;
+
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['users'] && this.users.length > 0) {
       console.log(this.users.length)
+      console.log("number of slides" + this.numberOfSlides);
+      this.splitUsers();
+    }
+    if (changes['scoreboardLevels'] && this.scoreboardLevels.length > 0 ) {
+      console.log(this.users.length)
+      console.log("number of slides" + this.numberOfSlides);
       this.splitUsers();
       this.generateSlides();
     }
@@ -52,7 +59,7 @@ export class UserCarouselComponent {
   }
 
   generateSlides() {
-    for (let i = 0; i < this.numberOfSlides; i++) {
+    for (let i = 0; i < this.numberOfSlides-1; i++) {
       this.slides.push({
         startImage: this.getStartImage(i),
         finishImage: this.getFinishImage(i),

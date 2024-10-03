@@ -19,6 +19,8 @@ export class HomeComponent {
 
   constructor(private router: Router, private authService: AuthService){}
   users: User[] = [];
+  numberOfSlides:number = 1;
+  scoreboardLevels: string[] = [];
 
   currentImage:string = 'platform3.png';
   currentText1: string = "Welcome to ";
@@ -32,7 +34,8 @@ export class HomeComponent {
   
   async ngOnInit() {
     this.users = await this.authService.retrieveUserLearning();
-    
+    this.numberOfSlides = await this.authService.retrieveNumberOfSlides();
+    this.scoreboardLevels = await this.authService.retrieveScoreBoardLevels();
   }
 
   changeImage(image: string) {
