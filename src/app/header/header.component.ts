@@ -16,26 +16,25 @@ export class HeaderComponent {
   constructor(private router: Router, private authService: AuthService,private authRole: AuthRole){}
 
   ngOnInit(){
-    this.admin = this.ifAdmin();
+    this.ifAdmin();
   }
   ifAdmin(): boolean{
-    let flag = false;
     this.authRole.canActivate().subscribe(
       (isAdmin) => {
         if (isAdmin) {
           console.log("User is an admin.");
-          flag = true;
+          this.admin = true;
         } else {
           console.log("User is not an admin.");
-          flag = false;
+          this.admin = false;
         }
       },
       (error) => {
         console.error("Error occurred while checking role:", error);
-        flag = false;
+        this.admin = false;
       }
     );
-    return flag;
+    return this.admin;
   }
 
   goToAdmin() {

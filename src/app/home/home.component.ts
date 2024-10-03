@@ -52,10 +52,8 @@ export class HomeComponent {
     this.authRole.canActivate().subscribe(
       (isAdmin) => {
         if (isAdmin) {
-          console.log("User is an admin.");
           this.admin = true;
         } else {
-          console.log("User is not an admin.");
           this.admin = false;
         }
       },
