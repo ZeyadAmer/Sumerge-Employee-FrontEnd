@@ -57,11 +57,11 @@ export class ApplyBoosterFormComponent {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    const updatedActiveBoosters = this.applyActiveBooster.map((activeBooster) => {
-      const correspondingBooster = this.responseBooster.find((booster) => booster.name === activeBooster.name);
+    this.responseBooster = this.responseBooster.map((booster) => {
+      const updatedBooster = this.applyActiveBooster.find(ab => ab.name === booster.name);
       return {
-        name: activeBooster.name,
-        isActive: correspondingBooster ? correspondingBooster.isActive : activeBooster.isActive
+        ...booster, // Spread operator to keep the existing properties
+        active: updatedBooster ? updatedBooster.isActive : booster.isActive // Update isActive if found, otherwise keep original
       };
     });
     this.http.put<{updateBoosterActivity: string}>('http://localhost:8081/boosters/updateBoosterActivity',this.responseBooster, { headers }).subscribe(
