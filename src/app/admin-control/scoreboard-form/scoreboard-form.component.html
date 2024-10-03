@@ -1,0 +1,28 @@
+<div class="form-container">
+    <h2>Add Scoreboard Level</h2>
+    <form [formGroup]="scoreboardLevelForm" class="score-form" (ngSubmit)="onSubmitAddScoreboardLevel()">
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Scoreboard Level Name</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" formControlName="scoreboardLevelName">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Minimum Score</span>
+            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" formControlName="minScore">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Image 1</span>
+            <input type="file" class="form-control" (change)="onFileChange($event, 'image1')" aria-describedby="inputGroupFileAddon01" aria-label="Upload">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Image 2</span>
+            <input type="file" class="form-control" (change)="onFileChange($event, 'image2')" aria-describedby="inputGroupFileAddon01" aria-label="Upload">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Line Image</span>
+            <input type="file" class="form-control" (change)="onFileChange($event, 'lineImage')" aria-describedby="inputGroupFileAddon01" aria-label="Upload">
+        </div>
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary btn-lg">Add Scoreboard Level</button>
+        </div>
+    </form>
+</div>

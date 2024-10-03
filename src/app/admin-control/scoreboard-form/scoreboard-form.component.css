@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+* {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff; /* Changed to match form container's text color */
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Adjusted to take full width */
+    max-width: 700px; /* Set maximum width */
+    margin-bottom: 20px;
+    border-radius: 15px;
+    background: linear-gradient(to bottom, #302f7f 20%, #5abdab 50%);
+    padding: 20px;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
+}
+
+.score-form {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for content */
+    border-radius: 15px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    line-height: 100px;
+}
+
+.switch-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #2d3286;
+    border: none;
+    border-radius: 30px;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+header .logo {
+    max-width: 150px;
+}
+
+header ul {
+    display: flex;
+    padding: 0; /* Added to remove default padding */
+    margin: 0; /* Added to remove default margin */
+}
+
+header ul li {
+    list-style: none;
+}
+
+header ul li a {
+    display: inline-block;
+    color: #333;
+    font-weight: 400;
+    margin-left: 40px;
+    text-decoration: none;
+}
+
+.text-danger {
+    color: red;
+    font-size: 0.875rem; /* Smaller font size for error messages */
+    margin-top: 0.25rem; /* Space above the error messages */
+}

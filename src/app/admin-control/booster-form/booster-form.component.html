@@ -1,0 +1,24 @@
+<div class="form-container">
+    <h2>Add Booster</h2>
+    <form [formGroup]="boosterForm" class="booster-form" (ngSubmit)="onSubmitAddBooster()">
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Booster Name</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" formControlName="boosterName">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Booster Type Name</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" formControlName="boosterTypeName">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Booster Type Value</span>
+            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" formControlName="boosterTypeValue">
+        </div>
+        <div class="form-check form-switch switch-container">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" formControlName="isActive">
+            <label class="form-check-label" for="flexSwitchCheckDefault">isActive</label>
+        </div>
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary btn-lg">Add Booster</button>
+        </div>
+    </form>
+</div>
