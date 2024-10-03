@@ -18,6 +18,9 @@ export class AuthService {
   users: User[] = [];
   constructor(private http: HttpClient,private cookieService: CookieService, private router:Router) {}
 
+ async isAdmin(){
+  
+ }
   logout(){
     this.cookieService.delete('authToken');
     this.router.navigate(['/login']);

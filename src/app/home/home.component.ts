@@ -7,6 +7,7 @@ import { Route, Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../scoreboard-list/user.model';
 import { HeaderComponent } from "../header/header.component";
+import { AuthRole } from '../app.authRole';
 
 @Component({
   selector: 'app-home',
@@ -17,10 +18,11 @@ import { HeaderComponent } from "../header/header.component";
 })
 export class HomeComponent {
 
-  constructor(private router: Router, private authService: AuthService){}
+  constructor(private router: Router, private authService: AuthService,private authRole: AuthRole){}
   users: User[] = [];
   numberOfSlides:number = 1;
   scoreboardLevels: string[] = [];
+  admin: boolean = false;
 
   currentImage:string = 'platform3.png';
   currentText1: string = "Welcome to ";
@@ -36,6 +38,8 @@ export class HomeComponent {
     this.users = await this.authService.retrieveUserLearning();
     this.numberOfSlides = await this.authService.retrieveNumberOfSlides();
     this.scoreboardLevels = await this.authService.retrieveScoreBoardLevels();
+    this.ifAdmin();
+    
   }
 
   changeImage(image: string) {
@@ -45,8 +49,22 @@ export class HomeComponent {
   }
 
   ifAdmin(): boolean{
-    // send request to backend tro get the tokena nd check if it is admin or no
-    return true;
+    this.authRole.canActivate().subscribe(
+      (isAdmin) => {
+        if (isAdmin) {
+          console.log("User is an admin.");
+          this.admin = true;
+        } else {
+          console.log("User is not an admin.");
+          this.admin = false;
+        }
+      },
+      (error) => {
+        console.error("Error occurred while checking role:", error);
+        this.admin = false;
+      }
+    );
+    return this.admin;
   }
 
   goToAdmin() {

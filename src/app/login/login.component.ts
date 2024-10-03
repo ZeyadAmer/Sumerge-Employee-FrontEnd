@@ -42,6 +42,8 @@ export class LoginComponent {
         this.email = '';
         this.password = '';
         this.error = 'Login successful!';
+
+        
         this.router.navigate(['/home']);
       },
       error => {
