@@ -1,0 +1,11 @@
+<div class="form-container">
+    <h2>Apply Booster</h2>
+    <form class="booster-form" [formGroup]="applyActiveBoosterForm" class="booster-form" (ngSubmit)="onSubmitApplyActiveBooster()">
+        <div *ngFor="let activeBooster of applyActiveBooster">
+            <app-active-booster [activeName]="activeBooster.name" [isActive]="activeBooster.isActive"></app-active-booster>
+        </div>
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary btn-lg">Apply Boosters</button>
+        </div>
+    </form>
+</div>

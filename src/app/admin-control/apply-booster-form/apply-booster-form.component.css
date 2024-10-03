@@ -24,7 +24,7 @@ h2 {
     box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
 }
 
-.signup-form {
+.booster-form {
     width: 100%;
     padding: 55px; /* Increased padding for more space inside the form */
     box-sizing: border-box;

@@ -6,11 +6,12 @@ import { BoosterFormComponent } from "./booster-form/booster-form.component";
 import { ScoreboardFormComponent } from "./scoreboard-form/scoreboard-form.component";
 import { SignupComponent } from './signup/signup.component';
 import { ScoreboardListComponent } from "../scoreboard-list/scoreboard-list.component";
+import { ApplyBoosterFormComponent } from "./apply-booster-form/apply-booster-form.component";
 
 @Component({
   selector: 'app-admin-control',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormsModule, HeaderComponent, BoosterFormComponent, ScoreboardFormComponent, SignupComponent, ScoreboardListComponent],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, HeaderComponent, BoosterFormComponent, ScoreboardFormComponent, SignupComponent, ScoreboardListComponent, ApplyBoosterFormComponent],
   templateUrl: './admin-control.component.html',
   styleUrls: ['./admin-control.component.css']  
 })

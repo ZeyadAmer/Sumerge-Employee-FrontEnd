@@ -35,3 +35,8 @@ name: string;
 department: { name: string };
 isManager: boolean;
 }  
+
+export interface ActiveBooster{
+    name: string;
+    isActive: boolean;
+}
