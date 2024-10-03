@@ -4,21 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sumerge's Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
     <section>
         <div class="circle"></div>
         <header>
-            <a href="#"><img src="logo.jpg" class="logo"></a>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Learnings</a></li>
-                <li><a href="#">Career Package</a></li>
-                <li><a href="#">Scoreboard</a></li>
-                <li *ngIf="ifAdmin()"><a (click)="goToAdmin()">Admin Controls</a></li>
-                <li><a href="#">Profile</a></li>
-            </ul>
-        </header>
+          <a href="#"><img src="logo.jpg" class="logo"></a>
+          <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Learnings</a></li>
+              <li><a href="#">Career Package</a></li>
+              <li><a href="#">Scoreboard</a></li>
+              <li *ngIf="ifAdmin()"><a (click)="goToAdmin()">Admin Controls</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropbtn">Profile <i class="fas fa-caret-down"></i></a>
+                  <div class="dropdown-content">
+                      <a href="#">View Profile</a>
+                      <a href="#">Logout</a>
+                  </div>
+              </li>
+          </ul>
+      </header>
+      
+      
         <div class="content">
             <div class="textBox">
               <h2>{{ currentText1 }}<span>{{ currentText2 }}</span></h2>
