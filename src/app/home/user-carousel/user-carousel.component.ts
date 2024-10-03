@@ -84,8 +84,28 @@ export class UserCarouselComponent {
     return `${index}/line.png`;
   }
 
+  // calculatePosition(score: number): string {
+  //   const positionPercentage = (score / this.maxScore) * 100; // Calculate position based on score
+  //   return `${positionPercentage}%`; // Convert to percentage
+  // }
+
   calculatePosition(score: number): string {
-    const positionPercentage = (score / this.maxScore) * 100; // Calculate position based on score
+    const startCircleWidth = 100; // Width of the start circle in pixels
+    const startPosition = 0; // Center of the start circle in percentage
+    const endPosition = 80; // Position for the end of the street line (70%)
+
+    // Calculate the position percentage based on the score
+    let positionPercentage: number;
+
+    if (score === 0) {
+        positionPercentage = startPosition; // If score is 0, place at start position
+    } else if (score >= endPosition) {
+        positionPercentage = endPosition; // If score is 100, place at 70%
+    } else {
+        // Scale the score to fill the space between the start and end positions
+        positionPercentage = startPosition + ((score / this.maxScore) * (endPosition - startPosition));
+    }
+
     return `${positionPercentage}%`; // Convert to percentage
   }
 }
