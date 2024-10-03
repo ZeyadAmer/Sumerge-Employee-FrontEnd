@@ -231,3 +231,31 @@ header ul li a {
     width: 100%; /* Make it responsive */
 }
 
+ul li:hover > a {
+    color: #007bff; /* Change this to your desired hover color */
+}
+
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute; /* Positioned relative to the parent li */
+    background-color: #ffffff; /* Background color of dropdown */
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    min-width: 160px; /* Minimum width of the dropdown */
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    color: #333; /* Change to your desired text color */
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1; /* Change to your desired hover color */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Show the dropdown on hover */
+}
+

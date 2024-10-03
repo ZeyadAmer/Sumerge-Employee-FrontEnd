@@ -1,5 +1,5 @@
 <!-- scoreboard-item.component.html -->
-<li class="score-item">
+<li class="score-item" [ngStyle]="{'background': getGradient(scoreLevel)}">
   <span class="rank">{{ rank }}</span>
   <img [src]="profilePicture" alt="Profile Picture">
   <span class="name">{{ name }}</span>

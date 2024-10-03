@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { scoreboard } from '../admin-controls.model';
+import { SCROLL_LOCK } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-scoreboard-form',
@@ -46,6 +48,15 @@ export class ScoreboardFormComponent {
         lineImage: lineImageFile,
       });
 
+      // SEND THIS TO THE BACKEND AND CREATE A NEW SCOREBAORD LEVEL ////////////////////////////////////////////////////
+      const scoreboardForm: scoreboard = {
+          levelName: this.scoreboardLevelForm.value.scoreboardLevelName,
+          minScore: this.scoreboardLevelForm.value.minScore
+      }
+
+      console.log("SENT SCOREBAORD: ", scoreboardForm);
+
+
     } else {
       console.log('Scoreboard Level Form is invalid');
     }
@@ -69,4 +80,5 @@ export class ScoreboardFormComponent {
       console.log(`${fileType} selected:`, file);
     }
   }
+  
 }

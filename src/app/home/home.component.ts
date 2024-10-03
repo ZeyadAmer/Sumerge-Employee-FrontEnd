@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { Route, Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../scoreboard-list/user.model';
+import { HeaderComponent } from "../header/header.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ScoreboardListComponent, UserCarouselComponent, CommonModule],
+  imports: [ScoreboardListComponent, UserCarouselComponent, CommonModule, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

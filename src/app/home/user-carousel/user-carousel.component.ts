@@ -12,17 +12,21 @@ import { ScoreboardListComponent } from '../../scoreboard-list/scoreboard-list.c
   styleUrl: './user-carousel.component.css'
 })
 export class UserCarouselComponent {
-  numberOfSlides: number = 4; // Adjust this number as needed
 
-  scoreboardLevels = ["Explorer", "Dynamo", "Pioneer", "Legend", "Guru"]; // Define your levels here
+  // BACKEND HERE GET REQUEST LIST OF SCOREBOARD LEVELS .LENGTH CHANGE HERE ///////////////////////////////////
+  numberOfSlides: number = 4; // Adjust this number as needed 
+
+  // BACKNED HERE TOO AFTER THE GET REQUEST UPDATE THE SCOREBOARD LEVELS HERE --> NAMES, FOR LOOP .PUSH(NAME OF SCOREBOARD LEVEL) (men nfs el backend request that changed el number) //////////////
+
+  scoreboardLevels = ["Explorer", "Dynamo", "Pioneer", "Legend", "Guru"]; 
 
   slides: any[] = [];
-  userLevels: { [key: string]: User[] } = {}; // Dynamic storage for user levels
+  userLevels: { [key: string]: User[] } = {}; 
 
   startImage: string = "1.png";
   endImage: string = "2.png";
   overlayImage: string = "line.png";
-  maxScore: number = 100; // Assuming max score is 100 for scaling
+  maxScore: number = 100; 
   constructor(private authService: AuthService){}
   @Input() users!: User[] ;
 
@@ -36,16 +40,13 @@ export class UserCarouselComponent {
   }
 
   splitUsers() {
-    // Reset userLevels object for fresh categorization
+
     this.userLevels = {};
 
-    // Split users based on their score level dynamically
     for (const user of this.users) {
-      // Initialize the array for the score level if it doesn't exist
       if (!this.userLevels[user.scoreLevel]) {
         this.userLevels[user.scoreLevel] = [];
       }
-      // Add user to the appropriate score level
       this.userLevels[user.scoreLevel].push(user);
     }
   }
@@ -61,8 +62,7 @@ export class UserCarouselComponent {
   }
 
   getUsers(level: string): User[] {
-    // Return users based on their score level
-    return this.userLevels[level] || []; // Return an empty array if level doesn't exist
+    return this.userLevels[level] || [];
   }
 
   getStartImage(index: number): string {
@@ -74,12 +74,11 @@ export class UserCarouselComponent {
   }
 
   getLevel(index: number): string {
-    // Check if the index is within the valid range
     if (index >= 1 && index <= this.scoreboardLevels.length) {
-        return this.scoreboardLevels[index - 1]; // Return level based on index
+        return this.scoreboardLevels[index - 1]; 
     }
 
-    return ''; // Return an empty string for invalid index
+    return '';
   }
 
   getLine(index: number): string {
@@ -92,22 +91,20 @@ export class UserCarouselComponent {
   // }
 
   calculatePosition(score: number): string {
-    const startCircleWidth = 100; // Width of the start circle in pixels
-    const startPosition = 0; // Center of the start circle in percentage
-    const endPosition = 80; // Position for the end of the street line (70%)
+    const startCircleWidth = 100; 
+    const startPosition = 0; 
+    const endPosition = 80; 
 
-    // Calculate the position percentage based on the score
     let positionPercentage: number;
 
     if (score === 0) {
-        positionPercentage = startPosition; // If score is 0, place at start position
+        positionPercentage = startPosition;
     } else if (score >= endPosition) {
-        positionPercentage = endPosition; // If score is 100, place at 70%
+        positionPercentage = endPosition; 
     } else {
-        // Scale the score to fill the space between the start and end positions
         positionPercentage = startPosition + ((score / this.maxScore) * (endPosition - startPosition));
     }
 
-    return `${positionPercentage}%`; // Convert to percentage
+    return `${positionPercentage}%`;
   }
 }
