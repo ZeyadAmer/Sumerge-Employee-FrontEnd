@@ -12,10 +12,11 @@ export class AuthService {
   userScores: Score[] = [];
   rank: number = 1;
   scoreLevel: string="";
+  users: User[] = [];
   constructor(private http: HttpClient,private cookieService: CookieService) { }
 
   async retrieveUserLearning(): Promise<User[]> {
-    const users: User[] = [];
+    this.users = [];
     const token = this.cookieService.get('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -65,7 +66,7 @@ export class AuthService {
           };
   
           // Add user to the users array
-          users.push(user);
+          this.users.push(user);
           this.rank++;
         } catch (error) {
           console.error('Error occurred while fetching level name or user:', error);
@@ -75,8 +76,8 @@ export class AuthService {
       console.error('Error occurred while fetching scores:', error);
     }
   
-    console.log('ScoreboardListComponent initialized with users:', users);
-    return users; // Return the array of users
+    console.log('ScoreboardListComponent initialized with users:', this.users);
+    return this.users; // Return the array of users
   }
 
   //onn submit admin controls add booster

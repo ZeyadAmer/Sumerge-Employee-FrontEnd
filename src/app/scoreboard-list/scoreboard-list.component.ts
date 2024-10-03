@@ -1,9 +1,10 @@
 // scoreboard-list.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ScoreboardItemComponent } from './scoreboard-item/scoreboard-item.component';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { User } from './user.model';
+import {UserCarouselComponent} from '../home/user-carousel/user-carousel.component';
 
 
 
@@ -15,12 +16,11 @@ import { User } from './user.model';
   templateUrl: './scoreboard-list.component.html',
   styleUrls: ['./scoreboard-list.component.css']
 })
-export class ScoreboardListComponent implements OnInit{
-  users: User[] = [];
+export class ScoreboardListComponent{
 
-  
+@ViewChild(UserCarouselComponent) userCarousel!: UserCarouselComponent;
+
 constructor(private authService: AuthService) {}
+@Input() users!: User[] ;
 
-async ngOnInit() {
-  this.users = await this.authService.retrieveUserLearning();}
 }

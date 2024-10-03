@@ -4,6 +4,8 @@ import { I } from '@angular/cdk/keycodes';
 import { UserCarouselComponent } from "./user-carousel/user-carousel.component";
 import { CommonModule } from '@angular/common';
 import { Route, Router, RouterOutlet } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { User } from '../scoreboard-list/user.model';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +16,8 @@ import { Route, Router, RouterOutlet } from '@angular/router';
 })
 export class HomeComponent {
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private authService: AuthService){}
+  users: User[] = [];
 
   currentImage:string = 'platform3.png';
   currentText1: string = "Welcome to ";
@@ -25,6 +28,11 @@ export class HomeComponent {
     'package2.png': { text1: 'Submit your ', text2: 'Career Package' },
     'learning2.png': { text1: 'Complete your ', text2: 'Learnings' }
   };
+  
+  async ngOnInit() {
+    this.users = await this.authService.retrieveUserLearning();
+    
+  }
 
   changeImage(image: string) {
     this.currentImage = image;

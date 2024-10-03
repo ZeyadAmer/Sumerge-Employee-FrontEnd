@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { User } from '../../scoreboard-list/user.model';
 import { AuthService } from '../../services/auth.service';
 import { ScoreboardListComponent } from '../../scoreboard-list/scoreboard-list.component';
@@ -13,7 +13,6 @@ import { ScoreboardListComponent } from '../../scoreboard-list/scoreboard-list.c
 })
 export class UserCarouselComponent {
   numberOfSlides: number = 4; // Adjust this number as needed
-  users: User[] = [];
 
   scoreboardLevels = ["Explorer", "Dynamo", "Pioneer", "Legend", "Guru"]; // Define your levels here
 
@@ -25,12 +24,15 @@ export class UserCarouselComponent {
   overlayImage: string = "line.png";
   maxScore: number = 100; // Assuming max score is 100 for scaling
   constructor(private authService: AuthService){}
+  @Input() users!: User[] ;
 
-  async ngOnInit() {
-    // Wait for the promise to resolve and assign the users array
-    this.users = await this.authService.retrieveUserLearning();
-    this.splitUsers();
-    this.generateSlides();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['users'] && this.users.length > 0) {
+      console.log(this.users.length)
+      this.splitUsers();
+      this.generateSlides();
+    }
+
   }
 
   splitUsers() {

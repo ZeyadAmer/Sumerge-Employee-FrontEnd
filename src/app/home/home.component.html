@@ -44,7 +44,7 @@
     <section class="scoreboard">
         <h2>Learning Scoreboard</h2>
         <div class="scoreboard-background">
-            <app-scoreboard-list></app-scoreboard-list>
+            <app-scoreboard-list [users] = 'users'></app-scoreboard-list>
         </div>
     </section>
     
@@ -57,7 +57,7 @@
               <h2><span class="journey-map-title">Journey <br>Map</span></h2>
           </div>
           <div class="carousel-container">
-              <app-user-carousel></app-user-carousel>
+              <app-user-carousel [users] = 'users'></app-user-carousel>
           </div>
       </div>
   </section>
