@@ -15,6 +15,11 @@ export class AuthService {
   users: User[] = [];
   constructor(private http: HttpClient,private cookieService: CookieService) { }
 
+
+   logout(){
+    this.cookieService.delete('authToken');
+
+   }
   async retrieveUserLearning(): Promise<User[]> {
     this.users = [];
     const token = this.cookieService.get('authToken');
