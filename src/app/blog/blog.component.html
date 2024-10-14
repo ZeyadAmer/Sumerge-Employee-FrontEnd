@@ -1,0 +1,20 @@
+<html>
+<body>
+    <div class="blog-container">
+        <input [(ngModel)]="newBlogTitle" placeholder="Blog Title" />
+        <textarea [(ngModel)]="newBlogContent" placeholder="Write your blog here..."></textarea>
+        <button (click)="addBlog()">Submit</button>
+        <!-- Scrollable section to display blogs -->
+        <div class="scrollable" #scrollContainer (scroll)="onScroll()">
+            <div *ngFor="let blog of blogs" class="blog-entry">
+                <h3>{{ blog.title }}</h3>
+                <p class="blog-content">{{ blog.documentData }}</p>
+                <div class="blog-info">
+                    <span class="blog-author">by {{ blog.author }}</span>
+                    <span class="blog-date">{{ blog.submissionDate | date:'medium' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

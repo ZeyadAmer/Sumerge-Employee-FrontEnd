@@ -6,12 +6,17 @@ import { HomeComponent } from './home/home.component';
 import { AdminControlComponent } from './admin-control/admin-control.component';
 import { AuthGuard } from './app.authGuard'
 import { AuthRole } from './app.authRole'
+import { AuthManager } from './app.authManager';
+import { BlogComponent } from './blog/blog.component';
+import { BlogsApprovalComponent } from './blogs-approval/blogs-approval.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent }, // No guard for login
   { path: 'signup', component: SignUpComponent, canActivate: [AuthRole] }, // No guard for signup
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }, // Guard applied
   { path: 'admin-controls', component: AdminControlComponent, canActivate: [AuthRole] }, // Guard applied
+  { path: 'blogs', component: BlogComponent,canActivate: [AuthGuard] },
+  { path: 'blogsApproval', component: BlogsApprovalComponent, canActivate: [AuthManager] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 ];

@@ -39,7 +39,6 @@ export class HomeComponent {
     this.numberOfSlides = await this.authService.retrieveNumberOfSlides();
     this.scoreboardLevels = await this.authService.retrieveScoreBoardLevels();
     this.ifAdmin();
-    
   }
 
   changeImage(image: string) {

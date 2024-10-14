@@ -1,0 +1,22 @@
+<html>
+<body>
+    <div class="blog-container">
+        <div class="scrollable" #scrollContainer>
+            <div *ngFor="let blog of blogs" class="blog-entry">
+                <h3>{{ blog.title }}</h3>
+                <p class="blog-content">{{ blog.documentData }}</p>
+                <div class="blog-info">
+                    <span class="blog-author">by {{ blog.author }}, </span>
+                    <span class="blog-date">{{ blog.submissionDate | date: 'medium' }}</span>
+                </div>
+                <div class="approval-buttons">
+                    <button (click)="approveBlog(blog.id)">Approve</button>
+                    <button (click)="rejectBlog(blog.id)">Reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
