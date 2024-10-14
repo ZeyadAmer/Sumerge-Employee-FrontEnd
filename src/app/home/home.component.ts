@@ -73,6 +73,10 @@ export class HomeComponent {
     this.router.navigate(['/home']);
   }
 
+  goToCareerPackage(){
+    this.router.navigate(['/career-package']);
+  }
+
   onClickLogout(){
     this.authService.logout();
   }

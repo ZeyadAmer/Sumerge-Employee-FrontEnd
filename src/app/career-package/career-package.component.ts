@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ManagersComponent } from './managers/managers.component';
 import { UsersComponent } from './users/users.component';
 import { ManagerReceivedCareerPackage } from './managers/managers.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-career-package',
@@ -19,7 +20,7 @@ export class CareerPackageComponent implements OnInit{
     this.receivedCareerPackage();
   }
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
   // variables
   receivedCareerPackages: ManagerReceivedCareerPackage[] = [];
@@ -29,9 +30,13 @@ export class CareerPackageComponent implements OnInit{
   // RECEIVE SUBMITTED CAREER PACKAGES
   async receivedCareerPackage(){
     try{
+      const token = this.cookieService.get('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
       // send request to the submitted career package with managerId
       const response = await this.http
-          .get<ManagerReceivedCareerPackage[]>(`http://localhost:8080/submittedCareerPackage/manager/${this.managerId}`)
+          .get<ManagerReceivedCareerPackage[]>(`http://localhost:8080/submittedCareerPackage/manager/${this.managerId}`, {headers})
           .toPromise();
         console.log('Response from recieved:', response!);
 

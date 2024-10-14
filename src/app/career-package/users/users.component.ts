@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SubmittedCareerPackage, UserCareerPackage, UserSubmittedCareerPackage } from './users.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-users',
@@ -19,7 +20,7 @@ export class UsersComponent {
   uploadedFile!: File;
   isSubmitted: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
   ngOnInit(): void {
     this.fetchSubmissionMessages(2); // Fetch submission messages for a specific employee
@@ -70,13 +71,17 @@ export class UsersComponent {
 
   async fetchSubmissionMessages(employeeId: number): Promise<void> {
     try {
+      const token = this.cookieService.get('authToken');
+      const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
       if (this.isSubmitted) {
-        const careerPackagesResponse = await this.http.get<UserCareerPackage[]>(`http://localhost:8080/employeeCareerPackages/all/${employeeId}`).toPromise();
+        const careerPackagesResponse = await this.http.get<UserCareerPackage[]>(`http://localhost:8080/employeeCareerPackages/all/${employeeId}`, {headers}).toPromise();
         console.log('Employee Career Packages:', careerPackagesResponse);
         await this.submittedCareerPackage(careerPackagesResponse![careerPackagesResponse!.length - 1]);
       }
 
-      const messagesResponse = await this.http.get<UserSubmittedCareerPackage[]>(`http://localhost:8080/submittedCareerPackage/employee/${employeeId}`).toPromise();
+      const messagesResponse = await this.http.get<UserSubmittedCareerPackage[]>(`http://localhost:8080/submittedCareerPackage/employee/${employeeId}`, {headers}).toPromise();
       console.log('Fetched Submission Messages:', messagesResponse);
 
       if (this.isSubmitted) {
@@ -116,8 +121,11 @@ export class UsersComponent {
           id: message.id,
         },
       };
-
-      const response = await this.http.post<string>('http://localhost:8080/submittedCareerPackage', submitEmployeeCareerPackage).toPromise();
+      const token = this.cookieService.get('authToken');
+      const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+      const response = await this.http.post<string>('http://localhost:8080/submittedCareerPackage', submitEmployeeCareerPackage, {headers}).toPromise();
       console.log('Submitted Career Package Response:', response);
     } catch (error) {
       console.error('Error during submitted career package submission:', error);
@@ -136,8 +144,18 @@ export class UsersComponent {
 
   downloadFile(careerPackageName: string, id: number){
 
+  // Get the token from the cookie service
+  const token = this.cookieService.get('authToken');
+  
+  // Define the headers
+  const headers = {
+    'Authorization': `Bearer ${token}`
+  };
   const downloadUrl = `http://localhost:8080/submittedCareerPackage/download/${id}?careerPackageName=${encodeURIComponent(careerPackageName)}`;
-  fetch(downloadUrl)
+  fetch(downloadUrl, { 
+    method: 'GET', 
+    headers // Include headers in the fetch request
+  })
     .then(response => {
       if (!response.ok) {
         throw new Error("Failed to download file.");

@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-submitted-career-package',
@@ -27,7 +28,7 @@ export class SubmittedCareerPackageComponent {
   comments: string[] = [];
   submissionMessages: Array<{ date: string, file: string, comments: string[], userName: string, titleName: string, status: string }> = [];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
   @Output() changeDetected = new EventEmitter<void>();
 
@@ -50,8 +51,13 @@ export class SubmittedCareerPackageComponent {
       const url = `http://localhost:8080/submittedCareerPackage/${this.id}?careerPackageStatus=${careerPackageStatus}`;
       
       // Send the PUT request
+      const token = this.cookieService.get('authToken');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      });
       const response = await this.http.put<string>(url, null, {
-        headers: { 'Content-Type': 'application/json' } // optional, depending on the API's expectations
+        headers// optional, depending on the API's expectations
       }).toPromise();
       
       console.log('Response from received:', response!);
@@ -64,10 +70,21 @@ export class SubmittedCareerPackageComponent {
     }
   }
 
-  downloadFile(careerPackageName: string, id: number, titleName: string, userName: string){
-
+  downloadFile(careerPackageName: string, id: number, titleName: string, userName: string) {
     const downloadUrl = `http://localhost:8080/submittedCareerPackage/download/${id}?careerPackageName=${encodeURIComponent(careerPackageName)}`;
-    fetch(downloadUrl)
+    
+    // Get the token from the cookie service
+    const token = this.cookieService.get('authToken');
+    
+    // Define the headers
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+  
+    fetch(downloadUrl, { 
+      method: 'GET', 
+      headers // Include headers in the fetch request
+    })
       .then(response => {
         if (!response.ok) {
           throw new Error("Failed to download file.");
@@ -78,11 +95,13 @@ export class SubmittedCareerPackageComponent {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = titleName+"_"+userName+"_"+careerPackageName; // Set the filename
+        a.download = `${titleName}_${userName}_${careerPackageName}`; // Set the filename
         a.click();
         window.URL.revokeObjectURL(url); // Cleanup
       })
       .catch(error => console.error("Error:", error));
-    }
+  }
+  
+
 }
 

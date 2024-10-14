@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubmittedCareerPackageComponent } from "./submitted-career-package/submitted-career-package.component";
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ManagerReceivedCareerPackage } from './managers.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-managers',
@@ -26,10 +27,7 @@ export class ManagersComponent {
     managerId = 1;
     @Input({ required: true }) receivedCareerPackages!: ManagerReceivedCareerPackage[];
   
-    constructor(private http: HttpClient, private router: Router) {
-      // Set the default date
-      const currentDate = new Date().toLocaleDateString();
-    }
+    constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
   
     onUpdateCareerPackage() {
       console.log('Career package updated in child component.');
@@ -44,13 +42,9 @@ export class ManagersComponent {
     // }
   
     updateStatus() {
-      // Update the selected status based on the switch state
       this.selectedStatus = !this.selectedStatus; // Toggle the status
     }
   
-    // statusColor(status: string) {
-    //   return status === "Approved" ? '#198754' : '#dc3545';
-    // }
   
     // submitCareerPackage() {
     //   const currentDate = new Date().toLocaleString();
@@ -68,9 +62,13 @@ export class ManagersComponent {
   
     async receivedCareerPackage() {
       try {
+        const token = this.cookieService.get('authToken');
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+        });
         // Send request to the submitted career package with managerId
         const response = await this.http
-          .get<ManagerReceivedCareerPackage[]>(`http://localhost:8080/submittedCareerPackage/manager/${this.managerId}`)
+          .get<ManagerReceivedCareerPackage[]>(`http://localhost:8080/submittedCareerPackage/manager/${this.managerId}`, {headers})
           .toPromise();
         console.log('Response from received:', response!);
   

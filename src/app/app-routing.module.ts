@@ -9,6 +9,7 @@ import { AuthRole } from './app.authRole'
 import { AuthManager } from './app.authManager';
 import { BlogComponent } from './blog/blog.component';
 import { BlogsApprovalComponent } from './blogs-approval/blogs-approval.component';
+import { CareerPackageComponent } from './career-package/career-package.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent }, // No guard for login
@@ -18,7 +19,8 @@ export const routes: Routes = [
   { path: 'blogs', component: BlogComponent,canActivate: [AuthGuard] },
   { path: 'blogsApproval', component: BlogsApprovalComponent, canActivate: [AuthManager] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }
+  { path: '**', redirectTo: '/login' },
+  {path: 'career-package', component: CareerPackageComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({
