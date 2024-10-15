@@ -24,3 +24,10 @@ export interface UserCareerPackageDetails{
         name: string;
     }
 }
+
+export interface CommentDTO{
+    commentText: string;
+    submittedCareerPackage: {
+        id: number;
+    }
+}

@@ -4,6 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { CommentDTO } from '../managers.model';
 
 @Component({
   selector: 'app-submitted-career-package',
@@ -26,7 +27,7 @@ export class SubmittedCareerPackageComponent {
   submissionMessages: Array<{ date: string; file: string; comments: string[]; userName: string; titleName: string; status: string }> = [];
   
   private readonly apiBaseUrl = 'http://localhost:8083/submittedCareerPackage';
-  private managerId = 1; // Not used, consider removing if unnecessary
+  private readonly commentBaseUrl = 'http://localhost:8083/comments';
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
@@ -43,6 +44,8 @@ export class SubmittedCareerPackageComponent {
   }
 
   async updateCareerPackage(): Promise<void> {
+
+    // submitted career package entity
     const careerPackageStatus: string = this.selectedStatus ? 'APPROVED' : 'REJECTED';
     const url = `${this.apiBaseUrl}/${this.id}?careerPackageStatus=${careerPackageStatus}`;
     
@@ -58,6 +61,19 @@ export class SubmittedCareerPackageComponent {
       this.notifyParent(); // Notify the parent component
     } catch (error) {
       console.error("Error occurred:", error);
+    }
+
+    // comments entity
+    for(const comment of this.comments){
+      const submitComment: CommentDTO = {
+        commentText: comment,
+        submittedCareerPackage: {
+          id: this.id
+        }
+      }
+      const response = await this.http.post<string>(this.commentBaseUrl, submitComment, {headers}).toPromise();
+      console.log("comment response: "+ response);
+
     }
   }
 
@@ -84,5 +100,12 @@ export class SubmittedCareerPackageComponent {
         window.URL.revokeObjectURL(url);
       })
       .catch(error => console.error("Error:", error));
+  }
+
+  submitComment(): void {
+    if (this.comment) {
+      this.comments.push(this.comment);
+      this.comment = ''; // Clear the input
+    }
   }
 }

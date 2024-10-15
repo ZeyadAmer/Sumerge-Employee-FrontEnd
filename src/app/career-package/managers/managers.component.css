@@ -14,7 +14,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 700px;
-    max-height: 80vh; /* Restrict the height */
+    max-height: 60vh; /* Restrict the height */
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
