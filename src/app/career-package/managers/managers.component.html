@@ -3,8 +3,8 @@
     <div *ngFor="let package of receivedCareerPackages">
       <div class="submitted-container">
         <app-submitted-career-package
-          [userName]="userName"
-          [titleName]="titleName"
+          [userName]="package.userName"
+          [titleName]="package.titleName"
           [uploadedFileName]="package.employeeCareerPackage.careerPackageName"
           [selectedStatus]="package.selectedStatus"
           [id]="package.id"

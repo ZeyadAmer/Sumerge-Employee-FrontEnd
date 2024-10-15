@@ -19,6 +19,7 @@ export class UsersComponent {
   submissionMessages: Array<{ date: string; file: string; comments: string[]; status: string, id: number }> = [];
   uploadedFile!: File;
   isSubmitted: boolean = false;
+  employeeId!: number;
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
@@ -47,28 +48,34 @@ export class UsersComponent {
     }
 
     try {
+      const token = this.cookieService.get('authToken');
+      const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    
+    // get userId
+      const user = await this.http.get<string>('http://localhost:8080/users', {headers}).toPromise();
+      console.log('Response of user:', user);
+      const userId: any = await this.http.get<string>('http://localhost:8080/users/id', {headers}).toPromise();
+      console.log('Response of userId:', userId);
+
       const currentDate = new Date().toLocaleString();
       this.comments = []; // Clear comments for the new submission
 
       const formData = new FormData();
-      const employeeId = 2; // Assuming a static employeeId for demo
-      formData.append('employeeId', employeeId.toString());
+      this.employeeId = userId!; // Assuming a static employeeId for demo
+      formData.append('employeeId', this.employeeId.toString());
       formData.append('careerPackage', this.uploadedFile);
       formData.append('careerPackageName', this.uploadedFile.name);
       formData.append('date', currentDate);
 
       console.log('Form Data:', formData);
-      const token = this.cookieService.get('authToken');
-      const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    console.log("token: "+ token);
 
       const response = await this.http.post<string>('http://localhost:8083/employeeCareerPackages', formData, {headers}).toPromise();
       console.log('Response:', response);
 
       this.isSubmitted = true;
-      await this.fetchSubmissionMessages(employeeId);
+      await this.fetchSubmissionMessages(this.employeeId);
     } catch (error) {
       console.error('Error during package submission:', error);
     }
@@ -130,7 +137,6 @@ export class UsersComponent {
       const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    console.log("token: "+ token);
       const response = await this.http.post<string>('http://localhost:8083/submittedCareerPackage', submitEmployeeCareerPackage, {headers}).toPromise();
       console.log('Submitted Career Package Response:', response);
     } catch (error) {

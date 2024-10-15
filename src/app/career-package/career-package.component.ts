@@ -23,7 +23,6 @@ export class CareerPackageComponent implements OnInit{
   manager: boolean = false;
 
   ngOnInit(): void {
-    this.receivedCareerPackage();
     this.ifManager();
   }
 
@@ -50,42 +49,6 @@ export class CareerPackageComponent implements OnInit{
       }
     );
     return this.manager;
-  }
-
-  // for manager
-  // RECEIVE SUBMITTED CAREER PACKAGES
-  async receivedCareerPackage(){
-    try{
-      const token = this.cookieService.get('authToken');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-      // send request to the submitted career package with managerId
-      const response = await this.http
-          .get<ManagerReceivedCareerPackage[]>(`http://localhost:8083/submittedCareerPackage/manager/${this.managerId}`, {headers})
-          .toPromise();
-        console.log('Response from recieved:', response!);
-
-        for(const res of response!){
-          if(res.careerPackageStatus === "PENDING"){
-            this.receivedCareerPackages.push({
-              id: res.id,
-              employeeId: res.employeeId,
-              employeeCareerPackage: {
-                id: res.employeeCareerPackage.id,
-                careerPackageName: res.employeeCareerPackage.careerPackageName,
-                date: res.employeeCareerPackage.date
-              },
-              managerId: res.managerId,
-              careerPackageStatus: res.careerPackageStatus,
-              selectedStatus: false
-            }); 
-          } 
-        }
-    }
-    catch(error){
-      console.log("Error occured: "+ error);
-    }
   }
 
 }
