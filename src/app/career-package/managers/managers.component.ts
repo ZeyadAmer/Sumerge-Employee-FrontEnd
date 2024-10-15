@@ -21,6 +21,7 @@ export class ManagersComponent implements OnInit{
     selectedStatus: boolean = false;
     comment: string = '';
     comments: string[] = [];
+    isVisible: boolean = true;
     submissionMessages: Array<{ date: string, file: string, comments: string[], userName: string, titleName: string, status: string }> = [];
   
     receivedCareerPackages!: ManagerReceivedCareerPackage[];
@@ -35,32 +36,12 @@ export class ManagersComponent implements OnInit{
       console.log('Career package updated in child component.');
       this.receivedCareerPackage(); 
     }
-  
-    // submitComment() {
-    //   if (this.comment) {
-    //     this.comments.push(this.comment);
-    //     this.comment = '';
-    //   }
-    // }
+
   
     updateStatus() {
       this.selectedStatus = !this.selectedStatus; // Toggle the status
     }
-  
-  
-    // submitCareerPackage() {
-    //   const currentDate = new Date().toLocaleString();
-    //   this.submissionMessages.push({
-    //     date: `Career package submitted on ${currentDate}`,
-    //     file: this.uploadedFileName,
-    //     comments: [...this.comments],
-    //     userName: this.userName,
-    //     titleName: this.titleName,
-    //     status: this.selectedStatus ? 'Approved' : 'Rejected' // Use the state of the switch
-    //   });
-    //   this.comments = []; // Clear comments after submission
-    //   this.uploadedFileName = ''; // Clear file name after submission if necessary
-    // }
+
   
     async receivedCareerPackage() {
       try {
@@ -108,4 +89,5 @@ export class ManagersComponent implements OnInit{
         console.log("Error occurred: " + error);
       }
     }
+
   }

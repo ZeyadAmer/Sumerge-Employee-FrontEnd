@@ -23,8 +23,23 @@ export class UsersComponent {
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
-  ngOnInit(): void {
-    this.fetchSubmissionMessages(2); // Fetch submission messages for a specific employee
+  async ngOnInit(): Promise<void> { // Make ngOnInit async
+    const token = this.cookieService.get('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    
+    try {
+      // Get userId
+      const user =  await this.http.get<string>('http://localhost:8080/users', {headers}).toPromise();
+      console.log('Response of user:', user);
+      const userId: any =  await this.http.get<string>('http://localhost:8080/users/id', {headers}).toPromise();
+      console.log('Response of userId:', userId);
+    this.fetchSubmissionMessages(userId);
+
+    } catch (error) {
+      console.error('Error fetching user or userId:', error);
+    }
   }
 
   onFileChange(event: any): void {
@@ -93,7 +108,7 @@ export class UsersComponent {
         await this.submittedCareerPackage(careerPackagesResponse![careerPackagesResponse!.length - 1]);
       }
 
-      const messagesResponse = await this.http.get<UserSubmittedCareerPackage[]>(`http://localhost:8083/submittedCareerPackage/employee/${employeeId}`, {headers}).toPromise();
+      const messagesResponse = await this.http.get<any[]>(`http://localhost:8083/submittedCareerPackage/employee/${employeeId}`, {headers}).toPromise();
       console.log('Fetched Submission Messages:', messagesResponse);
 
       if (this.isSubmitted) {
