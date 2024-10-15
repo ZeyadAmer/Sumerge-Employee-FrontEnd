@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SubmittedCareerPackage, UserCareerPackage } from './users.model';
 import { CookieService } from 'ngx-cookie-service';
+import { CommentDTO } from '../managers/managers.model';
 
 @Component({
   selector: 'app-users',
@@ -45,12 +46,12 @@ export class UsersComponent {
     }
   }
 
-  submitComment(): void {
-    if (this.comment) {
-      this.comments.push(this.comment);
-      this.comment = ''; // Clear the input
-    }
-  }
+  // submitComment(): void {
+  //   if (this.comment) {
+  //     this.comments.push(this.comment);
+  //     this.comment = ''; // Clear the input
+  //   }
+  // }
 
   async submitCareerPackage(): Promise<void> {
     if (!this.uploadedFile) {
@@ -103,7 +104,7 @@ export class UsersComponent {
         this.submissionMessages.push({
           date: 'Career package submitted on ' + message.employeeCareerPackage.date.toLocaleString(),
           file: message.employeeCareerPackage.careerPackageName,
-          comments: [...this.comments],
+          comments: [],
           status: message.careerPackageStatus,
           id: message.id,
         });
@@ -111,6 +112,15 @@ export class UsersComponent {
       } else {
         this.submissionMessages.length = 0;
         for (const message of messagesResponse!) {
+
+          // fetch comments
+          const commentResponse = await this.http.get<CommentDTO[]>(`http://localhost:8083/comments/all/${message.id}`, { headers }).toPromise();
+          if (commentResponse) {
+            this.comments = commentResponse.map(comment => comment.commentText); // Extract commentText
+          } else {
+            this.comments = []; // Handle the case when the response is undefined
+          }
+          // dsplay the submiited career packages
           this.submissionMessages.push({
             date: 'Career package submitted on ' + message.employeeCareerPackage.date.toLocaleString(),
             file: message.employeeCareerPackage.careerPackageName,
