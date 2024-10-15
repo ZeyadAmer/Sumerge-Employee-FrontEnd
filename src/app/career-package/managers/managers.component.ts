@@ -68,7 +68,7 @@ export class ManagersComponent {
         });
         // Send request to the submitted career package with managerId
         const response = await this.http
-          .get<ManagerReceivedCareerPackage[]>(`http://localhost:8080/submittedCareerPackage/manager/${this.managerId}`, {headers})
+          .get<ManagerReceivedCareerPackage[]>(`http://localhost:8083/submittedCareerPackage/manager/${this.managerId}`, {headers})
           .toPromise();
         console.log('Response from received:', response!);
   

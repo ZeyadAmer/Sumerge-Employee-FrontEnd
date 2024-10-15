@@ -58,8 +58,13 @@ export class UsersComponent {
       formData.append('date', currentDate);
 
       console.log('Form Data:', formData);
+      const token = this.cookieService.get('authToken');
+      const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    console.log("token: "+ token);
 
-      const response = await this.http.post<string>('http://localhost:8080/employeeCareerPackages', formData).toPromise();
+      const response = await this.http.post<string>('http://localhost:8083/employeeCareerPackages', formData, {headers}).toPromise();
       console.log('Response:', response);
 
       this.isSubmitted = true;
@@ -76,12 +81,12 @@ export class UsersComponent {
       'Authorization': `Bearer ${token}`
     });
       if (this.isSubmitted) {
-        const careerPackagesResponse = await this.http.get<UserCareerPackage[]>(`http://localhost:8080/employeeCareerPackages/all/${employeeId}`, {headers}).toPromise();
+        const careerPackagesResponse = await this.http.get<UserCareerPackage[]>(`http://localhost:8083/employeeCareerPackages/all/${employeeId}`, {headers}).toPromise();
         console.log('Employee Career Packages:', careerPackagesResponse);
         await this.submittedCareerPackage(careerPackagesResponse![careerPackagesResponse!.length - 1]);
       }
 
-      const messagesResponse = await this.http.get<UserSubmittedCareerPackage[]>(`http://localhost:8080/submittedCareerPackage/employee/${employeeId}`, {headers}).toPromise();
+      const messagesResponse = await this.http.get<UserSubmittedCareerPackage[]>(`http://localhost:8083/submittedCareerPackage/employee/${employeeId}`, {headers}).toPromise();
       console.log('Fetched Submission Messages:', messagesResponse);
 
       if (this.isSubmitted) {
@@ -125,7 +130,8 @@ export class UsersComponent {
       const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-      const response = await this.http.post<string>('http://localhost:8080/submittedCareerPackage', submitEmployeeCareerPackage, {headers}).toPromise();
+    console.log("token: "+ token);
+      const response = await this.http.post<string>('http://localhost:8083/submittedCareerPackage', submitEmployeeCareerPackage, {headers}).toPromise();
       console.log('Submitted Career Package Response:', response);
     } catch (error) {
       console.error('Error during submitted career package submission:', error);
@@ -151,7 +157,7 @@ export class UsersComponent {
   const headers = {
     'Authorization': `Bearer ${token}`
   };
-  const downloadUrl = `http://localhost:8080/submittedCareerPackage/download/${id}?careerPackageName=${encodeURIComponent(careerPackageName)}`;
+  const downloadUrl = `http://localhost:8083/submittedCareerPackage/download/${id}?careerPackageName=${encodeURIComponent(careerPackageName)}`;
   fetch(downloadUrl, { 
     method: 'GET', 
     headers // Include headers in the fetch request

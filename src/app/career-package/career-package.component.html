@@ -7,7 +7,7 @@
 </head>
 <body>
     <mat-horizontal-stepper labelPosition="bottom">
-        <mat-step [completed]="true">
+        <mat-step [completed]="true" *ngIf="manager">
           <ng-template matStepLabel>Managers</ng-template>
           <app-managers [receivedCareerPackages]="receivedCareerPackages"></app-managers>
         </mat-step>

@@ -29,7 +29,7 @@ export class AuthManager implements CanActivate {
           if (response.role === 'ROLE_MANAGER') {
             return true; // Allow access if the role is manager
           } else {
-            this.router.navigate(['/home']); // Redirect to home if not admin
+            //this.router.navigate(['/home']); // Redirect to home if not admin
             return false;
           }
         }),

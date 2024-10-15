@@ -7,24 +7,50 @@ import { ManagersComponent } from './managers/managers.component';
 import { UsersComponent } from './users/users.component';
 import { ManagerReceivedCareerPackage } from './managers/managers.model';
 import { CookieService } from 'ngx-cookie-service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+import { AuthManager } from '../app.authManager';
 
 @Component({
   selector: 'app-career-package',
   standalone: true,
-  imports: [UsersComponent, ManagersComponent, MatButtonModule, MatStepperModule],
+  imports: [UsersComponent, ManagersComponent, MatButtonModule, MatStepperModule, CommonModule],
   templateUrl: './career-package.component.html',
   styleUrl: './career-package.component.css'
 })
 export class CareerPackageComponent implements OnInit{
+
+  manager: boolean = false;
+
   ngOnInit(): void {
     this.receivedCareerPackage();
+    this.ifManager();
   }
 
-  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
+  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService, private authManager: AuthManager) {}
 
   // variables
   receivedCareerPackages: ManagerReceivedCareerPackage[] = [];
   managerId = 1; 
+
+  ifManager(): boolean{
+    this.authManager.canActivate().subscribe(
+      (isManager) => {
+        if (isManager) {
+          console.log("User is an manager.");
+          this.manager = true;
+        } else {
+          console.log("User is not an manager.");
+          this.manager = false;
+        }
+      },
+      (error) => {
+        console.error("Error occurred while checking role:", error);
+        this.manager = false;
+      }
+    );
+    return this.manager;
+  }
 
   // for manager
   // RECEIVE SUBMITTED CAREER PACKAGES
@@ -36,7 +62,7 @@ export class CareerPackageComponent implements OnInit{
     });
       // send request to the submitted career package with managerId
       const response = await this.http
-          .get<ManagerReceivedCareerPackage[]>(`http://localhost:8080/submittedCareerPackage/manager/${this.managerId}`, {headers})
+          .get<ManagerReceivedCareerPackage[]>(`http://localhost:8083/submittedCareerPackage/manager/${this.managerId}`, {headers})
           .toPromise();
         console.log('Response from recieved:', response!);
 

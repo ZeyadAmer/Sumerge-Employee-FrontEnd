@@ -48,7 +48,7 @@ export class SubmittedCareerPackageComponent {
       const careerPackageStatus: string = this.selectedStatus ? 'APPROVED' : 'REJECTED';
       
       // Construct the request URL with query parameters
-      const url = `http://localhost:8080/submittedCareerPackage/${this.id}?careerPackageStatus=${careerPackageStatus}`;
+      const url = `http://localhost:8083/submittedCareerPackage/${this.id}?careerPackageStatus=${careerPackageStatus}`;
       
       // Send the PUT request
       const token = this.cookieService.get('authToken');
@@ -71,7 +71,7 @@ export class SubmittedCareerPackageComponent {
   }
 
   downloadFile(careerPackageName: string, id: number, titleName: string, userName: string) {
-    const downloadUrl = `http://localhost:8080/submittedCareerPackage/download/${id}?careerPackageName=${encodeURIComponent(careerPackageName)}`;
+    const downloadUrl = `http://localhost:8083/submittedCareerPackage/download/${id}?careerPackageName=${encodeURIComponent(careerPackageName)}`;
     
     // Get the token from the cookie service
     const token = this.cookieService.get('authToken');

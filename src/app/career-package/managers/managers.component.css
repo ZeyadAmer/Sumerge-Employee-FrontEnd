@@ -1,0 +1,280 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+.upload-container {
+    background-color: #d3d3d3;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 700px;
+    height: 460px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.comment-section {
+    margin-top: 20px;
+}
+
+.comment {
+    margin-top: 10px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.input-group {
+    display: flex;
+    align-items: stretch;
+}
+
+textarea {
+    flex: 1;
+    margin-right: 1px;
+}
+
+button {
+    background-color: #007bff; /* Blue background for comment button */
+    color: white; /* White text color */
+    border: none; /* No border */
+    padding: 8px 10px; /* Padding for the comment button */
+    margin-left: 1px; /* 1px space between textarea and button */
+    cursor: pointer; /* Change cursor to pointer */
+    display: flex;
+    align-items: center; /* Center icon vertically */
+}
+
+.btn-success {
+    background-color: #28a745; /* Green background for the submit button */
+    color: white; /* White text color */
+    border: none; /* No border */
+    padding: 5px 10px; /* Smaller padding for the button */
+    width: auto; /* Auto width */
+    cursor: pointer; /* Change cursor to pointer */
+    margin-top: 15px; /* Space above the button */
+    text-align: center; /* Center text in the button */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.submit-btn {
+    width: 100%; /* Center button in the form */
+    max-width: 300px; /* Set max width to make it smaller */
+    margin: 15px auto 0; /* Center horizontally and add margin */
+    display: block; /* Make it a block element */
+}
+
+.parent-div {
+    background-color: #d3d3d3;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 260px;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.submission-message {
+    background-color: #e0e0e0; /* Slightly darker grey for each message */
+    padding: 5px;
+    margin: 5px 0; /* Space between messages */
+    border-radius: 3px;
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack the elements vertically */
+}
+
+.message-content {
+    display: flex; /* Use flexbox to align items in a row */
+    justify-content: space-between; /* Space out elements */
+    align-items: center; /* Center vertically */
+}
+
+.file-link {
+    margin: 5px 0; /* Space between the date and file link */
+}
+
+.date-message {
+    flex-grow: 1; /* Allow this to take up available space */
+}
+
+.info-div {
+    background-color: white; /* White background */
+    padding: 10px; /* Padding for aesthetics */
+    margin: 3px 0; /* Margin above and below */
+    text-align: left; /* Align text to the left */
+    border-radius: 5px; /* Optional: rounded corners */
+}
+
+.form-check {
+    display: flex; /* Ensure flex display */
+    align-items: center; /* Center items vertically */
+}
+
+.form-check-input {
+    margin-left: 5px; /* Optional: spacing between the checkbox and label */
+}
+
+.status {
+    padding: 5px 10px; /* Some padding for aesthetics */
+    border-radius: 3px; /* Rounded corners */
+    font-weight: bold; /* Make the text bold */
+}
+
+.status-pending {
+    background-color: #ffc107; /* Yellow background */
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+.upload-container {
+    background-color: #d3d3d3;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 700px;
+    max-height: 80vh; /* Restrict the height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.comment-section {
+    margin-top: 20px;
+}
+
+.comment {
+    margin-top: 10px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.input-group {
+    display: flex;
+    align-items: stretch;
+}
+
+textarea {
+    flex: 1;
+    margin-right: 1px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    margin-left: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    width: auto;
+    cursor: pointer;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.submit-btn {
+    width: 100%;
+    max-width: 300px;
+    margin: 15px auto 0;
+    display: block;
+}
+
+.info-div {
+    background-color: white;
+    padding: 10px;
+    margin: 3px 0;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input {
+    margin-left: 5px;
+}
+
+
+.info-input-container {
+    background-color: #f0f0f0; /* White background for the input container */
+    padding: 20px; /* Padding for aesthetics */
+    border-radius: 5px; /* Optional: rounded corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Slight shadow for better visibility */
+}
+
+.upload-container {
+    background-color: #d3d3d3;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 700px;
+    max-height: 80vh; /* Restrict the height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.info-div {
+    background-color: #f0f0f0; /* White background for individual info divs */
+    padding: 10px; /* Padding for aesthetics */
+    margin: 3px 0; /* Margin above and below */
+    text-align: left; /* Align text to the left */
+    border-radius: 5px; /* Optional: rounded corners */
+}
+
+.info-inputs-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* This adds a gap between the two white divs */
+}
+
+.info-input-container {
+    background-color: white; /* White background for each input container */
+    padding: 10px; /* Padding for aesthetics */
+    border-radius: 5px; /* Optional: rounded corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: shadow for depth */
+}
+
+.submitted-container {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+

@@ -12,6 +12,7 @@ import { BlogsApprovalComponent } from './blogs-approval/blogs-approval.componen
 import { BlogComponent } from './blog/blog.component';
 import { SubmitLearningComponent } from './Learnings/submit-learning/submit-learning.component';
 import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,9 @@ import { ReviewLearningComponent } from './Learnings/review-learning/review-lear
     CommonModule,
     BlogComponent
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
