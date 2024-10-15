@@ -67,11 +67,12 @@ export class BlogComponent implements OnInit {
 
   // Scroll event handler to load more blogs
   onScroll() {
-    const { scrollTop, scrollHeight, clientHeight } = this.scrollContainer.nativeElement;
-    if (scrollTop + clientHeight >= scrollHeight && !this.loading) {
-      this.loadMoreBlogs();
-    }
+  const container = this.scrollContainer.nativeElement;
+  const { scrollTop, scrollHeight, clientHeight } = container;
+  if (scrollTop + clientHeight >= scrollHeight - 50 && !this.loading) {
+    this.loadMoreBlogs();
   }
+}
 
   // Fetch more blogs (pagination or lazy loading)
   async loadMoreBlogs() {

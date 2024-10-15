@@ -1,0 +1,69 @@
+html, body {
+    height: 100%; /* Make sure the body takes full height */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    overflow: hidden; /* Prevent scrolling on the body */
+    background-color: #1e1b3a; /* Dark purple background */
+    color: #ffffff; /* White text */
+    font-family: Arial, sans-serif; /* Optional: set a default font */
+}
+
+.learning-container {
+    background-color: #1e1b3a; /* Dark purple for the container */
+    color: #ffffff; /* White text */
+    width: 400px; /* Fixed width for the box */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px auto; /* Center the box at the top of the screen */
+    text-align: left; /* Left-align text inside the box */
+}
+
+.learning-container h2 {
+    text-align: center; /* Center the title for aesthetic purposes */
+}
+
+.form-group {
+    margin-bottom: 20px; /* Space between form groups */
+}
+
+label {
+    margin-bottom: 5px; /* Space between label and input */
+    display: block; /* Make labels block-level elements */
+}
+
+input, select, textarea {
+    width: 100%; /* Full width for inputs and selects */
+    padding: 10px; /* Padding inside input fields */
+    border-radius: 5px; /* Rounded corners for inputs */
+    border: 1px solid #ccc; /* Light border */
+}
+
+button {
+    background-color: #5b6de0; /* Dark blue for buttons */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%; /* Make button full width */
+}
+
+button:hover {
+    background-color: #7160e1; /* Brighter purple on hover */
+}
+
+.learning-list-container {
+    margin-top: 20px; /* Space above learning list */
+    text-align: center; /* Center align the heading */
+}
+
+.learning-list {
+    max-height: 300px; /* Set a maximum height for the learning list */
+    overflow-y: auto; /* Enable vertical scrolling if necessary */
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #1e1b3a; /* Match the background */
+    border: 1px solid #ccc; /* Light border for the list */
+}

@@ -1,0 +1,31 @@
+<html>
+<body>
+    <div class="container">
+        <h2>Review Learnings</h2>
+    
+        <!-- Form to submit the ID and load learnings -->
+        <div class="input-section">
+        <label for="userId">Enter User ID: </label>
+        <input type="number" id="userId" [(ngModel)]="userId" placeholder="Enter user ID">
+        <button (click)="loadLearnings()">Submit</button>
+        </div>
+    
+        <!-- Learnings List -->
+        <div class="learning-list">
+        <div *ngFor="let learning of learnings" class="learning-box">
+            <p><strong>Proof:</strong> {{ learning.proof }}</p>
+            <p><strong>Proof Type:</strong> {{ learning.proofType }}</p>
+            <p><strong>Description:</strong> {{ learning.description }}</p>
+            <p><strong>Learning Type:</strong> {{ learning.learningType.name }}</p>
+            <p><strong>Manager ID:</strong> {{ learning.ManagerId }}</p>
+    
+            <!-- Approve and Reject Buttons -->
+            <div class="buttons">
+            <button (click)="approveLearning(learning.id)">Approve</button>
+            <button (click)="rejectLearning(learning.id)">Reject</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
+</html>  

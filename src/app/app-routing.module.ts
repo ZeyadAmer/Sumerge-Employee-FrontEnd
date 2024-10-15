@@ -9,14 +9,18 @@ import { AuthRole } from './app.authRole'
 import { AuthManager } from './app.authManager';
 import { BlogComponent } from './blog/blog.component';
 import { BlogsApprovalComponent } from './blogs-approval/blogs-approval.component';
+import { SubmitLearningComponent } from './Learnings/submit-learning/submit-learning.component';
+import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent }, // No guard for login
-  { path: 'signup', component: SignUpComponent, canActivate: [AuthRole] }, // No guard for signup
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }, // Guard applied
-  { path: 'admin-controls', component: AdminControlComponent, canActivate: [AuthRole] }, // Guard applied
+  { path: 'login', component: LoginComponent }, 
+  { path: 'signup', component: SignUpComponent, canActivate: [AuthRole] }, 
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }, 
+  { path: 'admin-controls', component: AdminControlComponent, canActivate: [AuthRole] }, 
   { path: 'blogs', component: BlogComponent,canActivate: [AuthGuard] },
   { path: 'blogsApproval', component: BlogsApprovalComponent, canActivate: [AuthManager] },
+  { path: 'submit-learning', component:SubmitLearningComponent, canActivate: [AuthGuard]},
+  { path: 'approve-learning', component:ReviewLearningComponent, canActivate: [AuthManager]},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 ];

@@ -10,13 +10,15 @@ import { SignUpComponent } from './signup/signup.component';
 import { ScoreboardListComponent } from './scoreboard-list/scoreboard-list.component';
 import { BlogsApprovalComponent } from './blogs-approval/blogs-approval.component';
 import { BlogComponent } from './blog/blog.component';
-
+import { SubmitLearningComponent } from './Learnings/submit-learning/submit-learning.component';
+import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
     BlogsApprovalComponent,
-    
+    SubmitLearningComponent,
+    ReviewLearningComponent
   ],
   imports: [
     BrowserModule,
