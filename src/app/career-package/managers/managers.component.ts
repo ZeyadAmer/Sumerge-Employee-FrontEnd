@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubmittedCareerPackageComponent } from "./submitted-career-package/submitted-career-package.component";
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
@@ -23,6 +23,8 @@ export class ManagersComponent implements OnInit{
     comments: string[] = [];
     isVisible: boolean = true;
     submissionMessages: Array<{ date: string, file: string, comments: string[], userName: string, titleName: string, status: string }> = [];
+
+    @Output() reloadCareerPackageParent = new EventEmitter<void>();
   
     receivedCareerPackages!: ManagerReceivedCareerPackage[];
   
@@ -35,6 +37,7 @@ export class ManagersComponent implements OnInit{
     onUpdateCareerPackage() {
       console.log('Career package updated in child component.');
       this.receivedCareerPackage(); 
+      this.reloadCareerPackageParent.emit();
     }
 
   

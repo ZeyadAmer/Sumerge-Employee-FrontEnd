@@ -8,13 +8,13 @@
 <body>
     <mat-horizontal-stepper labelPosition="bottom">
         <mat-step [completed]="true" *ngIf="manager" >
-          <ng-template matStepLabel>Managers</ng-template>
-          <app-managers></app-managers>
+          <ng-template matStepLabel><span class="step-label">Manager</span></ng-template>
+          <app-managers (reloadCareerPackageParent)="reload()"></app-managers>
         </mat-step>
       
         <mat-step>
-          <ng-template matStepLabel>Users</ng-template>
-          <app-users></app-users>
+          <ng-template matStepLabel><span class="step-label">User</span></ng-template>
+          <app-users (reloadCareerPackageParent)="reload()"></app-users>
         </mat-step>
     
       </mat-horizontal-stepper>

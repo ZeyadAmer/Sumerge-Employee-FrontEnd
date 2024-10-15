@@ -8,9 +8,9 @@ body {
     background-color: #f8f9fa;
 }
 
-/* Upload Container */
+/* Container Styles */
 .upload-container {
-    background-color: #d3d3d3;
+    background-color: #5abdab;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -18,6 +18,26 @@ body {
     width: 700px;
     max-height: 80vh;
     overflow-y: auto;
+}
+
+.info-div,
+.info-input-container {
+    background-color: rgba(255, 255, 255, 0.527);
+    padding: 10px;
+    margin: 3px 0;
+    border-radius: 5px;
+    text-align: left;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.info-input-container{
+    background-color: #5abdabe8;
+}
+
+.info-inputs-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 /* Headings */
@@ -38,7 +58,7 @@ h2 {
     text-align: left;
 }
 
-/* Input Group */
+/* Input and Button Styles */
 .input-group {
     display: flex;
     align-items: stretch;
@@ -49,7 +69,6 @@ textarea {
     margin-right: 1px;
 }
 
-/* Buttons */
 button {
     background-color: #007bff;
     color: white;
@@ -62,13 +81,12 @@ button {
 }
 
 .btn-success {
-    background-color: #28a745;
+    background-color: #2a2650f6;
     color: white;
     border: none;
     padding: 5px 10px;
     margin-top: 15px;
     cursor: pointer;
-    text-align: center;
 }
 
 .btn-success:hover {
@@ -82,28 +100,7 @@ button {
     display: block;
 }
 
-/* Info and Message Containers */
-.info-div,
-.info-input-container {
-    background-color: white;
-    padding: 10px;
-    margin: 3px 0;
-    border-radius: 5px;
-    text-align: left;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.info-inputs-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.submitted-container {
-    margin: 5px 0;
-}
-
-/* Form Check */
+/* Form Check Styles */
 .form-check {
     display: flex;
     align-items: center;
@@ -113,7 +110,17 @@ button {
     margin-left: 5px;
 }
 
-/* Status Labels */
+.form-check-input:checked {
+    background-color: green;
+    border-color: green;
+}
+
+.form-check-input:not(:checked) {
+    background-color: red;
+    border-color: red;
+}
+
+/* Status Styles */
 .status {
     padding: 5px 10px;
     border-radius: 3px;
@@ -122,6 +129,14 @@ button {
 
 .status-pending {
     background-color: #ffc107;
+}
+
+.status-approved {
+    color: green;
+}
+
+.status-rejected {
+    color: red;
 }
 
 /* Submission Messages */
@@ -146,4 +161,8 @@ button {
 
 .date-message {
     flex-grow: 1;
+}
+
+.submitted-container {
+    margin: 5px 0;
 }

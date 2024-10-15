@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SubmittedCareerPackage, UserCareerPackage, UserSubmittedCareerPackage } from './users.model';
@@ -20,6 +20,8 @@ export class UsersComponent {
   uploadedFile!: File;
   isSubmitted: boolean = false;
   employeeId!: number;
+
+  @Output() reloadCareerPackageParent = new EventEmitter<void>();
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
@@ -91,6 +93,7 @@ export class UsersComponent {
 
       this.isSubmitted = true;
       await this.fetchSubmissionMessages(this.employeeId);
+      this.reloadCareerPackageParent.emit();
     } catch (error) {
       console.error('Error during package submission:', error);
     }
@@ -122,6 +125,7 @@ export class UsersComponent {
         });
         this.isSubmitted = false;
       } else {
+        this.submissionMessages.length = 0;
         for (const message of messagesResponse!) {
           this.submissionMessages.push({
             date: 'Career package submitted on ' + message.employeeCareerPackage.date.toLocaleString(),
@@ -132,7 +136,7 @@ export class UsersComponent {
           });
         }
       }
-      console.log(this.submissionMessages);
+      console.log("submission: "+this.submissionMessages);
     } catch (error) {
       console.error('Error while fetching submission messages:', error);
     }
@@ -161,12 +165,12 @@ export class UsersComponent {
 
   statusColor(status: string): string {
     if(status === "APPROVED"){
-      return '#198754'
+      return '#28a745'
     }
     else if(status === "REJECTED"){
-      return '#dc3545'
+      return '#df362d'
     }
-    return "yellow";
+    return "#fad02c";
   }
 
   downloadFile(careerPackageName: string, id: number){

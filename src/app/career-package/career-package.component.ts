@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +19,9 @@ import { AuthManager } from '../app.authManager';
   styleUrl: './career-package.component.css'
 })
 export class CareerPackageComponent implements OnInit{
+
+  @ViewChild(ManagersComponent) managerReloadComponent!: ManagersComponent;
+  @ViewChild(UsersComponent) userReloadComponent!: UsersComponent;
 
   manager: boolean = false;
 
@@ -49,6 +52,14 @@ export class CareerPackageComponent implements OnInit{
       }
     );
     return this.manager;
+  }
+
+  reload(){
+    console.log("parent commponent reloaded");
+    console.log("testing the manager reload");
+    this.managerReloadComponent.receivedCareerPackage();
+    console.log("testing user component reload");
+    this.userReloadComponent.ngOnInit();
   }
 
 }
