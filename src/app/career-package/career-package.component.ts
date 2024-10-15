@@ -10,11 +10,12 @@ import { CookieService } from 'ngx-cookie-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { AuthManager } from '../app.authManager';
+import { HeaderComponent } from "../header/header.component";
 
 @Component({
   selector: 'app-career-package',
   standalone: true,
-  imports: [UsersComponent, ManagersComponent, MatButtonModule, MatStepperModule, CommonModule],
+  imports: [UsersComponent, ManagersComponent, MatButtonModule, MatStepperModule, CommonModule, HeaderComponent],
   templateUrl: './career-package.component.html',
   styleUrl: './career-package.component.css'
 })
