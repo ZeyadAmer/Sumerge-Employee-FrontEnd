@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Package</title>
+</head>
+<body>
+    <mat-horizontal-stepper labelPosition="bottom">
+        <mat-step [completed]="true">
+          <ng-template matStepLabel>Managers</ng-template>
+          <app-managers [receivedCareerPackages]="receivedCareerPackages"></app-managers>
+        </mat-step>
+      
+        <mat-step>
+          <ng-template matStepLabel>Users</ng-template>
+          <app-users></app-users>
+        </mat-step>
+    
+      </mat-horizontal-stepper>
+</body>
+</html>

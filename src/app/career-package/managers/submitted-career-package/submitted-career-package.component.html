@@ -1,0 +1,46 @@
+<!-- Big white background div for all inputs -->
+<div class="info-inputs-wrapper">
+    <div class="info-input-container">
+        <!-- Display default values for User Name, Title, and File Name in styled divs -->
+        <div class="info-div">
+            <strong>User Name:</strong> {{ userName }}
+        </div>
+        <div class="info-div">
+            <strong>Title:</strong> {{ titleName }}
+        </div>
+        <div class="info-div">
+            <strong>File Name: </strong> <a (click)="downloadFile(uploadedFileName, id, titleName, userName)" href="javascript:void(0);">{{ uploadedFileName }}</a>
+        </div>
+        <div class="info-div">
+            <strong>Status:</strong>
+            <div class="form-check form-switch" style="display: inline-flex; align-items: center;">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [(ngModel)]="selectedStatus">
+                <label class="form-check-label" for="flexSwitchCheckDefault" style="margin-left: 5px;">
+                    {{ selectedStatus ? 'Approved' : 'Rejected' }}
+                </label>
+            </div>
+        </div>
+    
+       
+        <!-- <div class="comment-section">
+            <div class="input-group">
+                <textarea [(ngModel)]="comment" class="form-control" rows="3" placeholder="Add a comment..."></textarea>
+                <button (click)="submitComment()" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                    </svg>
+                </button>
+            </div>
+    
+    
+            <div *ngFor="let c of comments" class="comment">
+                <strong>Comment:</strong> {{ c }}
+            </div>
+        </div> -->
+    
+        <!-- Submit Career Package Button -->
+        <button (click)="updateCareerPackage()" class="btn btn-success mt-3 submit-btn">
+            Update Career Package Status
+        </button>
+    </div>
+    

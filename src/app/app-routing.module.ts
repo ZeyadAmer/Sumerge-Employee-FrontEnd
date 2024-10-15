@@ -11,6 +11,7 @@ import { BlogComponent } from './blog/blog.component';
 import { BlogsApprovalComponent } from './blogs-approval/blogs-approval.component';
 import { SubmitLearningComponent } from './Learnings/submit-learning/submit-learning.component';
 import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
+import { CareerPackageComponent } from './career-package/career-package.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent }, 
@@ -22,7 +23,8 @@ export const routes: Routes = [
   { path: 'submit-learning', component:SubmitLearningComponent, canActivate: [AuthGuard]},
   { path: 'approve-learning', component:ReviewLearningComponent, canActivate: [AuthManager]},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }
+  { path: '**', redirectTo: '/login' },
+  {path: 'career-package', component: CareerPackageComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({
