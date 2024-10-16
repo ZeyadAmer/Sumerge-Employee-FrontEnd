@@ -22,9 +22,9 @@ export const routes: Routes = [
   { path: 'blogsApproval', component: BlogsApprovalComponent, canActivate: [AuthManager] },
   { path: 'submit-learning', component:SubmitLearningComponent, canActivate: [AuthGuard]},
   { path: 'approve-learning', component:ReviewLearningComponent, canActivate: [AuthManager]},
+  {path: 'career-package', component: CareerPackageComponent, canActivate:[AuthGuard]},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' },
-  {path: 'career-package', component: CareerPackageComponent, canActivate:[AuthGuard]}
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({
