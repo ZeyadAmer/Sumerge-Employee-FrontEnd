@@ -7,8 +7,8 @@ import { SignUpComponent } from './signup/signup.component';
 import { AuthGuard } from './app.authGuard'
 import { AuthRole } from './app.authRole'
 import { AuthManager } from './app.authManager';
-import { BlogComponent } from './blog/blog.component';
-import { BlogsApprovalComponent } from './blogs-approval/blogs-approval.component';
+import { BlogComponent } from './blogs/blog/blog.component';
+import { BlogsApprovalComponent } from './blogs/blogs-approval/blogs-approval.component';
 import { SubmitLearningComponent } from './Learnings/submit-learning/submit-learning.component';
 import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
 import { CareerPackageComponent } from './career-package/career-package.component';

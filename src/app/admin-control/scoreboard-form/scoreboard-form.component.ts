@@ -37,7 +37,6 @@ export class ScoreboardFormComponent {
     if (this.scoreboardLevelForm.valid) {
       const formData = this.scoreboardLevelForm.value;
   
-      // Rename the images
       const image1Rename = '1.png';
       const image2Rename = '2.png';
       const lineImageRename = 'line.png';
@@ -53,7 +52,6 @@ export class ScoreboardFormComponent {
         lineImage: lineImageFile,
       });
 
-      // input levelName and minScore and post to the backend
       const scoreboardForm: scoreboard = {
           levelName: this.scoreboardLevelForm.value.scoreboardLevelName,
           minScore: this.scoreboardLevelForm.value.minScore
