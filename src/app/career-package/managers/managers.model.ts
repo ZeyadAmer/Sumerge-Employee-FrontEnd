@@ -9,8 +9,25 @@ export interface ManagerReceivedCareerPackage{
     managerId: number;
     careerPackageStatus: string;
     selectedStatus: boolean;
+    userName: string;
+    titleName: string;
 }
 
 export interface ManagerUpdateStatus {
     careerPackageStatus: string;
+}
+
+export interface UserCareerPackageDetails{
+    firstName: string;
+    lastName: string;
+    title: {
+        name: string;
+    }
+}
+
+export interface CommentDTO{
+    commentText: string;
+    submittedCareerPackage: {
+        id: number;
+    }
 }

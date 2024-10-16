@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AuthRole } from '../app.authRole';
 import { Observable } from 'rxjs';
+import { AuthManager } from '../app.authManager';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -47,5 +48,9 @@ export class HeaderComponent {
 
   onClickLogout(){
     this.authService.logout();
+  }
+
+  goToCareerPackage(){
+    this.router.navigate(['/career-package']);
   }
 }

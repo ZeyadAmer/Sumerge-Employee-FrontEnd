@@ -1,17 +1,16 @@
 <div class="upload-container">
-    <h2>Submitted Career Packages</h2>
-    <div *ngFor="let package of receivedCareerPackages">
-      <div class="submitted-container">
-        <app-submitted-career-package
-          [userName]="userName"
-          [titleName]="titleName"
-          [uploadedFileName]="package.employeeCareerPackage.careerPackageName"
-          [selectedStatus]="package.selectedStatus"
-          [id]="package.id"
-          (changeDetected)="onUpdateCareerPackage()"
-          >
-        </app-submitted-career-package>
-      </div>
-        
-      </div>
+  <h2>Submitted Career Packages</h2>
+  <div *ngFor="let package of receivedCareerPackages">
+    <div class="submitted-container">
+      <app-submitted-career-package
+        [userName]="package.userName"
+        [titleName]="package.titleName"
+        [uploadedFileName]="package.employeeCareerPackage.careerPackageName"
+        [selectedStatus]="package.selectedStatus"
+        [id]="package.id"
+        (changeDetected)="onUpdateCareerPackage()"
+        >
+      </app-submitted-career-package>
+    </div>  
+  </div>
 </div>  

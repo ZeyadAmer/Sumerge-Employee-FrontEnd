@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f9fa; /* Adjusted background for the body */
+}
+
+.upload-container {
+    background-color: #1e1b3a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 700px;
+    max-height: 60vh; /* Restrict the height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: white; /* Color for the heading */
+}
+
+.submitted-container {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.info-div {
+    background-color: #5abdab; /* Background for individual info divs */
+    padding: 10px; /* Padding for aesthetics */
+    margin: 3px 0; /* Margin above and below */
+    text-align: left; /* Align text to the left */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.info-input-container {
+    background-color: #5abdab; /* Background for each input container */
+    padding: 10px; /* Padding for aesthetics */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: shadow for depth */
+}
+
+.info-inputs-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Adds a gap between input containers */
+}
