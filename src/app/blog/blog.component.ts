@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface Blog {
   id: number;
@@ -10,7 +12,7 @@ export interface Blog {
   documentData: string;
   author: string;
   comment: string | null;
-  submissionDate: string; // or Date if you want to parse it later
+  submissionDate: string;
 }
 
 @Component({
@@ -23,9 +25,9 @@ export interface Blog {
 export class BlogComponent implements OnInit {
   blogs: Blog[] = [];
   newBlogContent: string = '';
-  page: number = 0;  // Current page of blogs
-  size: number = 5;  // Number of blogs to load per page
-  loading: boolean = false; // To prevent multiple requests during scrolling
+  page: number = 0;
+  size: number = 5;
+  loading: boolean = false;
 
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   newBlogTitle: any;
@@ -36,14 +38,15 @@ export class BlogComponent implements OnInit {
     this.loadBlogs();
   }
 
-  // Fetch initial blogs
-  async loadBlogs() {
-    this.page = 0; // Reset page for initial load
-    this.blogs = await this.getBlogs(this.page, this.size);
+  loadBlogs(): void {
+    this.page = 0;
+    this.getBlogs(this.page, this.size).subscribe({
+      next: (blogs) => this.blogs = blogs,
+      error: (err) => console.error('Error loading blogs:', err)
+    });
   }
 
-  // Submit new blog
-  async addBlog() {
+  addBlog(): void {
     const token = this.cookieService.get('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -55,47 +58,49 @@ export class BlogComponent implements OnInit {
       documentData: this.newBlogContent
     };
 
-    try {
-      const response = await this.http.post('http://localhost:8082/blogs', newBlog, { headers }).toPromise();
-      this.newBlogTitle = '';
-      this.newBlogContent = '';
-      this.blogs.unshift(response as Blog); // Add the new blog to the top of the list
-    } catch (error) {
-      console.error('Error submitting blog:', error);
+    this.http.post<Blog>('http://localhost:8082/blogs', newBlog, { headers }).subscribe({
+      next: (response) => {
+        this.newBlogTitle = '';
+        this.newBlogContent = '';
+        this.blogs.unshift(response);
+      },
+      error: (err) => console.error('Error submitting blog:', err)
+    });
+  }
+
+  onScroll(): void {
+    const container = this.scrollContainer.nativeElement;
+    const { scrollTop, scrollHeight, clientHeight } = container;
+    if (scrollTop + clientHeight >= scrollHeight - 50 && !this.loading) {
+      this.loadMoreBlogs();
     }
   }
 
-  // Scroll event handler to load more blogs
-  onScroll() {
-  const container = this.scrollContainer.nativeElement;
-  const { scrollTop, scrollHeight, clientHeight } = container;
-  if (scrollTop + clientHeight >= scrollHeight - 50 && !this.loading) {
-    this.loadMoreBlogs();
-  }
-}
-
-  // Fetch more blogs (pagination or lazy loading)
-  async loadMoreBlogs() {
+  loadMoreBlogs(): void {
     this.loading = true;
-    this.page += 1; // Increment page number
-    const moreBlogs = await this.getBlogs(this.page, this.size);
-    this.blogs = [...this.blogs, ...moreBlogs]; // Append new blogs to the current list
-    this.loading = false;
+    this.page += 1;
+
+    this.getBlogs(this.page, this.size).subscribe({
+      next: (moreBlogs) => {
+        this.blogs = [...this.blogs, ...moreBlogs];
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error loading more blogs:', err);
+        this.loading = false;
+      }
+    });
   }
 
-  // Fetch blogs with pagination
-  async getBlogs(page: number, size: number): Promise<Blog[]> {
+  getBlogs(page: number, size: number): Observable<Blog[]> {
     const token = this.cookieService.get('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    try {
-      const response = await this.http.get<Blog[]>(`http://localhost:8082/blogs?page=${page}&size=${size}`, { headers }).toPromise();
-      return response || [];
-    } catch (error) {
-      console.error('Error fetching blogs:', error);
-      return [];
-    }
+    return this.http.get<Blog[]>(`http://localhost:8082/blogs?page=${page}&size=${size}`, { headers })
+      .pipe(
+        map(response => response || [])
+      );
   }
 }

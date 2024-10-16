@@ -14,7 +14,6 @@ html, body {
     background-color: #1e1b3a;
     color: white;
     padding: 20px;
-    max-width: 800px;
     margin: 20px auto;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -86,7 +85,7 @@ button:hover {
 }
 
 .learning-list-container {
-    max-height: 400px; /* Adjust the height as needed */
+    max-height: 1000px; /* Adjust the height as needed */
     overflow-y: auto;
     border: 1px solid #ddd; /* Optional: Change border color as needed */
     padding: 10px;
@@ -128,11 +127,10 @@ button:hover {
   /* Scrollable area */
   .scrollable {
     width: 100%;
-    max-width: 800px;
     flex-grow: 1; /* Allows this section to take up remaining space */
     overflow-y: auto; /* Enable vertical scrolling */
     margin-top: 20px; /* Space above the scrollable area */
-    max-height: 400px; /* Limit the height for scrolling */
+    max-height: 500px; /* Limit the height for scrolling */
   }
   
   /* List group items */
