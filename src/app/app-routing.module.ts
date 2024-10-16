@@ -15,11 +15,10 @@ import { CareerPackageComponent } from './career-package/career-package.componen
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent }, 
-  { path: 'signup', component: SignUpComponent, canActivate: [AuthRole] }, 
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }, 
   { path: 'admin-controls', component: AdminControlComponent, canActivate: [AuthRole] }, 
   { path: 'blogs', component: BlogComponent,canActivate: [AuthGuard] },
-  { path: 'blogsApproval', component: BlogsApprovalComponent, canActivate: [AuthManager] },
+  { path: 'blogs-approval', component: BlogsApprovalComponent, canActivate: [AuthManager] },
   { path: 'submit-learning', component:SubmitLearningComponent, canActivate: [AuthGuard]},
   { path: 'approve-learning', component:ReviewLearningComponent, canActivate: [AuthManager]},
   {path: 'career-package', component: CareerPackageComponent, canActivate: [AuthGuard]},

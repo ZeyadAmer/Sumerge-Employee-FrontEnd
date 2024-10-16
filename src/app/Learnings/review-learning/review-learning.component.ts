@@ -94,7 +94,7 @@ export class ReviewLearningComponent implements OnInit {
         });
     
         try {
-          const response = await this.http.get<Learning[]>(`http://localhost:8081/userLearning`, {
+          const response = await this.http.get<Learning[]>(`http://localhost:8081/userLearning/pending`, {
             headers,
             params: {
                 id: this.userId.toString(), // Add userId to the request params
