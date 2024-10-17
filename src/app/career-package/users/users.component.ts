@@ -1,11 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SubmittedCareerPackage, UserCareerPackage } from './users.model';
+import { CareerPackageTemplateDTO, SubmittedCareerPackage, TitleUser, UserCareerPackage } from './users.model';
 import { CookieService } from 'ngx-cookie-service';
 import { CommentDTO } from '../managers/managers.model';
+import { Observable, lastValueFrom, forkJoin, throwError } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
+import { R } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-users',
@@ -14,29 +18,76 @@ import { CommentDTO } from '../managers/managers.model';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
   comment: string = '';
   comments: string[] = [];
   submissionMessages: Array<{ date: string; file: string; comments: string[]; status: string; id: number }> = [];
   uploadedFile!: File;
   isSubmitted: boolean = false;
   employeeId!: number;
+  employeeTitle!: string;
+  careerPackageTemplateFile!: File;
+  careerPackageTemplateId!: number;
+  careerPackageTemplateTitle!: string;
+  careerPackageTemplate!: CareerPackageTemplateDTO;
+
 
   @Output() reloadCareerPackageParent = new EventEmitter<void>();
 
-  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
+    const headers = this.getAuthHeaders();
+  
+    // Fetch users
+    this.http.get<TitleUser>('http://localhost:8080/users', { headers }).pipe(
+      tap(response => {
+        console.log('Users Response onInit:', response.title.name);
+        this.employeeTitle = response.title.name;
+        console.log("Title in onInit:", this.employeeTitle);
+      }),
+      switchMap(() =>
+        // Fetch User ID
+        this.http.get<number>('http://localhost:8080/users/id', { headers }).pipe(
+          tap(userId => {
+            console.log('User ID Response:', userId);
+            this.fetchSubmissionMessages(userId);
+          }),
+          switchMap(() => {
+            // Encode the employeeTitle to handle spaces or special characters
+            const encodedTitle = encodeURIComponent(this.employeeTitle);
+  
+            // Fetch Career Package Template using the encoded title
+            return this.http.get<CareerPackageTemplateDTO>(
+              `http://localhost:8083/careerPackageTemplates/${encodedTitle}`, 
+              { headers }
+            ).pipe(
+              tap(response => {
+                console.log("Career Package Template:", response);
+                this.careerPackageTemplateFile = response.careerPackageTemplate;
+                this.careerPackageTemplateId = response.id;
+                this.careerPackageTemplateTitle= response.title;
+                this.careerPackageTemplate = response;
+              })
+            );
+          })
+        )
+      ),
+      catchError(error => {
+        console.error('Error during requests:', error);
+        return throwError(() => error); // Ensure error is propagated
+      })
+    ).subscribe();
+  }
+  
+
+  private getAuthHeaders(): HttpHeaders {
     const token = this.cookieService.get('authToken');
-    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-
-    try {
-      const user = await this.http.get<string>('http://localhost:8080/users', { headers }).toPromise();
-      const userId: any = await this.http.get<string>('http://localhost:8080/users/id', { headers }).toPromise();
-      this.fetchSubmissionMessages(userId);
-    } catch (error) {
-      console.error('Error fetching user or userId:', error);
-    }
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
   onFileChange(event: any): void {
@@ -46,113 +97,142 @@ export class UsersComponent {
     }
   }
 
-  // submitComment(): void {
-  //   if (this.comment) {
-  //     this.comments.push(this.comment);
-  //     this.comment = ''; // Clear the input
-  //   }
-  // }
-
-  async submitCareerPackage(): Promise<void> {
+  submitCareerPackage(): void {
     if (!this.uploadedFile) {
       console.log('No file uploaded.');
       return;
     }
 
-    try {
-      const token = this.cookieService.get('authToken');
-      const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    const headers = this.getAuthHeaders();
+    const currentDate = new Date().toLocaleString();
+    this.comments = [];
 
-      const user = await this.http.get<string>('http://localhost:8080/users', { headers }).toPromise();
-      const userId: any = await this.http.get<string>('http://localhost:8080/users/id', { headers }).toPromise();
+    this.http.get<string>('http://localhost:8080/users', { headers }).pipe(
+      tap(response => console.log('Users Response in Submit:', response)),
+      switchMap(() => this.http.get<number>('http://localhost:8080/users/id', { headers })),
+      tap(userId => {
+        console.log('User ID Response in Submit:', userId);
+        this.employeeId = userId;
+      }),
+      switchMap((userId) => {
+        const formData = new FormData();
+        formData.append('employeeId', userId.toString());
+        formData.append('careerPackage', this.uploadedFile);
+        formData.append('careerPackageName', this.uploadedFile.name);
+        formData.append('date', currentDate);
+        formData.append('careerPackageTemplate', this.careerPackageTemplateTitle);
 
-      const currentDate = new Date().toLocaleString();
-      this.comments = []; // Clear comments for the new submission
-
-      const formData = new FormData();
-      this.employeeId = userId!;
-      formData.append('employeeId', this.employeeId.toString());
-      formData.append('careerPackage', this.uploadedFile);
-      formData.append('careerPackageName', this.uploadedFile.name);
-      formData.append('date', currentDate);
-
-      const response = await this.http.post<string>('http://localhost:8083/employeeCareerPackages', formData, { headers }).toPromise();
-      console.log('Response:', response);
-
-      this.isSubmitted = true;
-      await this.fetchSubmissionMessages(this.employeeId);
-      this.reloadCareerPackageParent.emit();
-    } catch (error) {
-      console.error('Error during package submission:', error);
-    }
+        return this.http.post<string>('http://localhost:8083/employeeCareerPackages', formData, { headers });
+      }),
+      tap(response => console.log('Career Package Submission Response:', response)),
+      tap(() => {
+        this.isSubmitted = true;
+        this.fetchSubmissionMessages(this.employeeId);
+      })
+    ).subscribe({
+      error: (error) => console.error('Error during package submission:', error)
+    });
   }
 
-  async fetchSubmissionMessages(employeeId: number): Promise<void> {
-    try {
-      const token = this.cookieService.get('authToken');
-      const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+  fetchSubmissionMessages(employeeId: number): void {
+    const headers = this.getAuthHeaders();
 
-      if (this.isSubmitted) {
-        const careerPackagesResponse = await this.http.get<UserCareerPackage[]>(`http://localhost:8083/employeeCareerPackages/all/${employeeId}`, { headers }).toPromise();
-        await this.submittedCareerPackage(careerPackagesResponse![careerPackagesResponse!.length - 1]);
-      }
+    const fetchMessages$ = this.http.get<any[]>(
+      `http://localhost:8083/submittedCareerPackage/employee/${employeeId}`,
+      { headers }
+    ).pipe(
+      tap(response => console.log('Fetch Messages Response career package:', response))
+    );
 
-      const messagesResponse = await this.http.get<any[]>(`http://localhost:8083/submittedCareerPackage/employee/${employeeId}`, { headers }).toPromise();
+    if (this.isSubmitted) {
+      this.http.get<UserCareerPackage[]>(
+        `http://localhost:8083/employeeCareerPackages/all/${employeeId}`,
+        { headers }
+      ).pipe(
+        tap(response => console.log('Career Packages Response:', response)),
+        tap(careerPackages => {
+          const lastPackage = careerPackages[careerPackages.length - 1];
+          this.submittedCareerPackage(lastPackage);
+        })
+      ).subscribe();
+    }
 
-      if (this.isSubmitted) {
-        const message = messagesResponse![messagesResponse!.length - 1];
-        this.submissionMessages.push({
-          date: 'Career package submitted on ' + message.employeeCareerPackage.date.toLocaleString(),
-          file: message.employeeCareerPackage.careerPackageName,
-          comments: [],
-          status: message.careerPackageStatus,
-          id: message.id,
-        });
-        this.isSubmitted = false;
-      } else {
-        this.submissionMessages.length = 0;
-        for (const message of messagesResponse!) {
-
-          // fetch comments
-          const commentResponse = await this.http.get<CommentDTO[]>(`http://localhost:8083/comments/all/${message.id}`, { headers }).toPromise();
-          if (commentResponse) {
-            this.comments = commentResponse.map(comment => comment.commentText); // Extract commentText
-          } else {
-            this.comments = []; // Handle the case when the response is undefined
-          }
-          // dsplay the submiited career packages
+    fetchMessages$.pipe(
+      switchMap(messagesResponse => {
+        if (this.isSubmitted) {
+          const message = messagesResponse[messagesResponse.length - 1];
           this.submissionMessages.push({
             date: 'Career package submitted on ' + message.employeeCareerPackage.date.toLocaleString(),
             file: message.employeeCareerPackage.careerPackageName,
-            comments: [...this.comments],
+            comments: [],
             status: message.careerPackageStatus,
             id: message.id,
           });
+          this.isSubmitted = false;
+          return [];
         }
-      }
-      console.log('Submission:', this.submissionMessages);
-    } catch (error) {
-      console.error('Error while fetching submission messages:', error);
-    }
+
+
+        this.submissionMessages.length = 0;
+        const commentRequests = messagesResponse.map(message =>
+          this.http.get<CommentDTO[]>(
+            `http://localhost:8083/comments/all/${message.id}`,
+            { headers }
+          ).pipe(
+            tap(comments => console.log(`Comments for message ${message.id}:`, comments)),
+            map(comments => ({
+              message,
+              comments: comments?.map(comment => comment.commentText) || []
+            }))
+          )
+        );
+
+        return forkJoin(commentRequests);
+      })
+    ).subscribe({
+      next: (messageWithComments) => {
+        console.log('Processed Messages with Comments:', messageWithComments);
+        if (messageWithComments.length > 0) {
+          messageWithComments.forEach(({ message, comments }) => {
+            this.submissionMessages.push({
+              date: 'Career package submitted on ' + message.employeeCareerPackage.date.toLocaleString(),
+              file: message.employeeCareerPackage.careerPackageName,
+              comments: comments,
+              status: message.careerPackageStatus,
+              id: message.id,
+            });
+          });
+        }
+        console.log('Final Submission Messages:', this.submissionMessages);
+      },
+      error: (error) => console.error('Error while fetching submission messages:', error)
+    });
   }
 
-  async submittedCareerPackage(message: UserCareerPackage): Promise<void> {
-    try {
-      const submitEmployeeCareerPackage: SubmittedCareerPackage = {
-        employeeId: message.employeeId,
-        careerPackageStatus: 'PENDING',
-        managerId: 1, // Assuming a static managerId for demo
-        employeeCareerPackage: {
-          id: message.id,
-        },
-      };
-      const token = this.cookieService.get('authToken');
-      const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-      const response = await this.http.post<string>('http://localhost:8083/submittedCareerPackage', submitEmployeeCareerPackage, { headers }).toPromise();
-      console.log('Submitted Career Package Response:', response);
-    } catch (error) {
-      console.error('Error during submitted career package submission:', error);
-    }
+  submittedCareerPackage(message: UserCareerPackage): void {
+    const submitEmployeeCareerPackage: SubmittedCareerPackage = {
+      employeeId: message.employeeId,
+      careerPackageStatus: 'PENDING',
+      managerId: 1,
+      employeeCareerPackage: {
+        id: message.id,
+      },
+    };
+
+    const headers = this.getAuthHeaders();
+    
+    this.http.post<string>(
+      'http://localhost:8083/submittedCareerPackage',
+      submitEmployeeCareerPackage,
+      { headers }
+    ).pipe(
+      tap(response => {
+        console.log('Submitted Career Package Response:', response)
+        this.reloadCareerPackageParent.emit()
+      })
+    ).subscribe({
+      error: (error) => console.error('Error during submitted career package submission:', error)
+    });
   }
 
   statusColor(status: string): string {
@@ -165,25 +245,24 @@ export class UsersComponent {
   }
 
   downloadFile(careerPackageName: string, id: number): void {
-    const token = this.cookieService.get('authToken');
-    const headers = { Authorization: `Bearer ${token}` };
+    const headers = this.getAuthHeaders();
     const downloadUrl = `http://localhost:8083/submittedCareerPackage/download/${id}?careerPackageName=${encodeURIComponent(careerPackageName)}`;
 
-    fetch(downloadUrl, { method: 'GET', headers })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to download file.');
-        }
-        return response.blob(); // Convert the response to a blob
-      })
-      .then((blob) => {
+    this.http.get(downloadUrl, {
+      headers,
+      responseType: 'blob'
+    }).pipe(
+      tap(blob => console.log('Download Response Blob:', blob))
+    ).subscribe({
+      next: (blob) => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = careerPackageName; // Set the filename
+        a.download = careerPackageName;
         a.click();
-        window.URL.revokeObjectURL(url); // Cleanup
-      })
-      .catch((error) => console.error('Error:', error));
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error) => console.error('Error:', error)
+    });
   }
 }
