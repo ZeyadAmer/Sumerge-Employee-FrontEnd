@@ -14,6 +14,7 @@ import { SubmitLearningComponent } from './Learnings/submit-learning/submit-lear
 import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { LearningsComponent } from './Learnings/learnings/learnings.component';
+import { HeaderComponent } from "./header/header.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,8 +32,9 @@ import { LearningsComponent } from './Learnings/learnings/learnings.component';
     FormsModule, // Add FormsModule here
     ScoreboardListComponent,
     CommonModule,
-    BlogComponent
-  ],
+    BlogComponent,
+    HeaderComponent
+],
   providers: [
     provideAnimationsAsync()
   ],

@@ -23,3 +23,15 @@ export interface UserSubmittedCareerPackage{
         careerPackageName: string;
     }
 }
+
+export interface TitleUser{
+    title:{
+        name: string;
+    }
+}
+
+export interface CareerPackageTemplateDTO{
+    title: string;
+    careerPackageTemplate: File;
+    id: number;
+}

@@ -9,8 +9,11 @@
 <body>
     <section>
         <div class="circle"></div>
-        <header>
+        <!-- <header>
           <a href="#"><img src="logo.jpg" class="logo"></a>
+          <button class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
           <ul>
             <li><a (click)="goToHome()">Home</a></li>
             <li><a>Learnings</a></li>
@@ -19,7 +22,7 @@
             <li><a>Profile</a></li>
             <li><a (click)="onClickLogout()">Logout</a></li>
           </ul>
-      </header>
+      </header> -->
       
       
         <div class="content">
@@ -65,7 +68,10 @@
       </div>
   </section>
   
-  
+  <script>
+    document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+    document.querySelector('header ul').classList.toggle('active');
+});
+  </script>
      
 </body>
-</html>

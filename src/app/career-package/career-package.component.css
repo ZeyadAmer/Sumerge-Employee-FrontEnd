@@ -1,20 +1,174 @@
+/* Base styles */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     background-color: #2a2650f6;
+    padding: 20px;
 }
 
 h2 {
     margin-bottom: 20px;
-}
-
-mat-horizontal-stepper{
-    background-color: #2a265000;
-}
-
-.step-label{
     color: white;
+}
+
+/* Stepper Container */
+mat-horizontal-stepper {
+    background-color: #2a265000;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.step-label {
+    color: white;
+}
+
+/* Custom styles for Material Stepper */
+::ng-deep .mat-horizontal-stepper-header-container {
+    padding: 0 20px;
+    width: 100%;
+}
+
+::ng-deep .mat-horizontal-content-container {
+    width: 100%;
+    padding: 24px !important;
+}
+
+/* Ensure app-managers takes full width of stepper content */
+app-managers {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Style inner content of app-managers */
+::ng-deep app-managers .manager-content {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Ensure proper spacing and alignment */
+::ng-deep .mat-horizontal-stepper-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Maintain consistent padding for content */
+::ng-deep .mat-step-content {
+    padding: 0;
+    width: 100%;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    mat-horizontal-stepper {
+        max-width: 95%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    ::ng-deep .mat-horizontal-stepper-header-container {
+        padding: 0 10px;
+    }
+
+    ::ng-deep .mat-horizontal-content-container {
+        padding: 16px !important;
+    }
+
+    /* Adjust spacing for mobile */
+    h2 {
+        font-size: 1.25rem;
+        margin-bottom: 15px;
+    }
+
+    .step-label {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    mat-horizontal-stepper {
+        max-width: 100%;
+    }
+
+    ::ng-deep .mat-horizontal-content-container {
+        padding: 12px !important;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+
+    .step-label {
+        font-size: 0.8rem;
+    }
+}
+
+/* Handle stepper content overflow */
+::ng-deep .mat-horizontal-content-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+}
+
+/* Add smooth transitions */
+::ng-deep .mat-horizontal-stepper-content {
+    transition: all 0.3s ease;
+}
+
+/* Improve touch targets on mobile */
+@media (hover: none) and (pointer: coarse) {
+    ::ng-deep .mat-horizontal-stepper-header {
+        min-height: 48px;
+    }
+
+    ::ng-deep .mat-step-icon {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* Ensure proper centering of stepper content */
+::ng-deep .mat-horizontal-stepper-content-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Style for both app-managers and app-users */
+app-managers, app-users {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Common styles for inner content */
+::ng-deep .content-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* Ensure proper form layout */
+::ng-deep form {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Style form fields to be responsive */
+::ng-deep .mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
 }

@@ -1,43 +1,49 @@
-*{
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-section{
+section {
     position: relative;
     width: 100%;
-    min-height: auto;
-    padding: 100px;
+    max-height: 50px;
+    padding: 50px; /* Adjusted padding */
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-header{
-    position: absolute;
+/* Keep the header always visible at the top */
+header {
+    position: fixed; /* Changed from absolute to fixed */
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 100px;
+    padding: 20px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: white;
+    z-index: 1000; /* Ensures it stays above other elements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+    height: 70px; /* Control header height */
 }
 
-header .logo{
-    position: relative;
-    max-width: 150px;
+header .logo {
+    max-width: 120px;
 }
 
-header ul{
-    position: relative;
+header ul {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-header ul li{
+header ul li {
     list-style: none;
 }
 
@@ -45,6 +51,15 @@ header ul li a {
     display: inline-block;
     color: #333;
     font-weight: 400;
-    margin-left: 40px;
+    margin-left: 20px;
     text-decoration: none;
+    cursor: pointer;
+}
+
+header ul li a:hover {
+    color: #555; /* Optional hover effect */
+}
+
+body {
+    padding-top: 60px; /* Add padding to avoid content overlapping with the header */
 }
