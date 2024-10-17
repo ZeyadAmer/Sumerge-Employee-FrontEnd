@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 * {
     margin: 0;
@@ -7,19 +8,8 @@
     font-family: 'Poppins', sans-serif;
 }
 
-section {
-    position: relative;
-    width: 100%;
-    max-height: 50px;
-    padding: 50px; /* Adjusted padding */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Keep the header always visible at the top */
 header {
-    position: fixed; /* Changed from absolute to fixed */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -28,9 +18,9 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    z-index: 1000; /* Ensures it stays above other elements */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
-    height: 70px; /* Control header height */
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 70px;
 }
 
 header .logo {
@@ -54,12 +44,62 @@ header ul li a {
     margin-left: 20px;
     text-decoration: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 header ul li a:hover {
-    color: #555; /* Optional hover effect */
+    color: #555;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-width: 160px;
+    display: block;
+    padding: 8px 0;
+    margin-top: 10px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu li {
+    display: block;
+    width: 100%;
+}
+
+.dropdown-menu li a {
+    padding: 8px 16px;
+    display: block;
+    margin: 0;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f5f5f5;
+}
+
+.material-icons {
+    margin-left: 4px;
+    font-size: 20px;
 }
 
 body {
-    padding-top: 60px; /* Add padding to avoid content overlapping with the header */
+    padding-top: 60px;
 }

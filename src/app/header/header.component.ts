@@ -14,6 +14,8 @@ import { AuthManager } from '../app.authManager';
 })
 export class HeaderComponent {
   admin: boolean = false;
+  showDropdown = false;
+  private dropdownTimer: any;
   constructor(private router: Router, private authService: AuthService,private authRole: AuthRole){}
 
   ngOnInit(){
@@ -52,5 +54,24 @@ export class HeaderComponent {
 
   goToCareerPackage(){
     this.router.navigate(['/career-package']);
+  }
+
+  onMouseEnter() {
+    // Clear any existing timer
+    if (this.dropdownTimer) {
+      clearTimeout(this.dropdownTimer);
+    }
+    this.showDropdown = true;
+  }
+
+  onMouseLeave() {
+    // Set a timer to hide the dropdown after 3 seconds
+    this.dropdownTimer = setTimeout(() => {
+      this.showDropdown = false;
+    }, 300);
+  }
+
+  goToLearnings(){
+    this.router.navigate(['/learnings']);
   }
 }
