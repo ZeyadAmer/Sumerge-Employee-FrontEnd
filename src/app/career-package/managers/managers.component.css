@@ -1,50 +1,184 @@
+/* Base styles */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    background-color: #f8f9fa; /* Adjusted background for the body */
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .upload-container {
     background-color: #1e1b3a;
-    padding: 30px;
+    padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 700px;
-    max-height: 60vh; /* Restrict the height */
-    overflow-y: auto; /* Enable vertical scrolling */
+    width: 100%;
+    max-width: 700px;
+    max-height: calc(90vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Customize scrollbar */
+.upload-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.upload-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.upload-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.upload-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 h2 {
     margin-bottom: 20px;
-    color: white; /* Color for the heading */
+    color: white;
+    font-size: 1.8rem;
+    padding: 0 10px;
 }
 
 .submitted-container {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin: 10px 0;
+    padding: 0 5px;
 }
 
 .info-div {
-    background-color: #5abdab; /* Background for individual info divs */
-    padding: 10px; /* Padding for aesthetics */
-    margin: 3px 0; /* Margin above and below */
-    text-align: left; /* Align text to the left */
-    border-radius: 5px; /* Rounded corners */
+    background-color: #5abdab;
+    padding: 15px;
+    margin: 8px 0;
+    text-align: left;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .info-input-container {
-    background-color: #5abdab; /* Background for each input container */
-    padding: 10px; /* Padding for aesthetics */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: shadow for depth */
+    background-color: #5abdab;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 5px 0;
 }
 
 .info-inputs-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 5px; /* Adds a gap between input containers */
+    gap: 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 15px;
+        align-items: flex-start;
+    }
+
+    .upload-container {
+        padding: 20px;
+        max-height: calc(100vh - 30px);
+        border-radius: 8px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .info-div {
+        padding: 12px;
+    }
+
+    .info-input-container {
+        padding: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .upload-container {
+        padding: 15px;
+        border-radius: 6px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+
+    .info-div {
+        padding: 10px;
+        margin: 6px 0;
+    }
+
+    .info-input-container {
+        padding: 10px;
+    }
+
+    .info-inputs-wrapper {
+        gap: 8px;
+    }
+}
+
+/* Ensure proper rendering of submitted career package component */
+app-submitted-career-package {
+    display: block;
+    width: 100%;
+}
+
+/* Make form elements responsive */
+::ng-deep .mat-form-field {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+
+/* Improve touch targets on mobile */
+@media (hover: none) and (pointer: coarse) {
+    .info-div,
+    .info-input-container {
+        min-height: 44px;
+    }
+
+    ::ng-deep button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Animation for smooth transitions */
+.submitted-container {
+    transition: all 0.3s ease;
+}
+
+/* Loading state styles */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Error state styles */
+.error {
+    border: 1px solid #ff4444;
+}
+
+/* Success state styles */
+.success {
+    border: 1px solid #00C851;
 }

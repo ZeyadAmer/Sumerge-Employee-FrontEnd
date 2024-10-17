@@ -13,6 +13,7 @@ import { BlogComponent } from './blog/blog.component';
 import { SubmitLearningComponent } from './Learnings/submit-learning/submit-learning.component';
 import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { HeaderComponent } from "./header/header.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,8 +30,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     FormsModule, // Add FormsModule here
     ScoreboardListComponent,
     CommonModule,
-    BlogComponent
-  ],
+    BlogComponent,
+    HeaderComponent
+],
   providers: [
     provideAnimationsAsync()
   ],

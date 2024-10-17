@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sumerge's Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-</head>
 <body>
     <section>
         <div class="circle"></div>
-        <header>
+        <!-- <header>
           <a href="#"><img src="logo.jpg" class="logo"></a>
+          <button class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
           <ul>
             <li><a (click)="goToHome()">Home</a></li>
             <li><a>Learnings</a></li>
@@ -20,7 +15,7 @@
             <li><a>Profile</a></li>
             <li><a (click)="onClickLogout()">Logout</a></li>
           </ul>
-      </header>
+      </header> -->
       
       
         <div class="content">
@@ -66,7 +61,10 @@
       </div>
   </section>
   
-  
+  <script>
+    document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+    document.querySelector('header ul').classList.toggle('active');
+});
+  </script>
      
 </body>
-</html>
