@@ -14,7 +14,6 @@
 textarea,
 input {
   width: 100%;
-  max-width: 800px; /* Max width for the input and textarea */
   background-color: #2a2650; /* Dark blue */
   color: #ffffff;
   border: none;
@@ -49,7 +48,6 @@ button:hover {
 /* Scrollable area */
 .scrollable {
   width: 100%;
-  max-width: 850px; /* Maintain max-width for the scrollable section */
   overflow-y: auto; /* Enable vertical scrolling */
   margin-top: 20px; /* Space between button and first blog entry */
   padding: 10px; /* Padding inside the scrollable area */

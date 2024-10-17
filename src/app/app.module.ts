@@ -13,13 +13,15 @@ import { BlogComponent } from './blogs/blog/blog.component';
 import { SubmitLearningComponent } from './Learnings/submit-learning/submit-learning.component';
 import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { LearningsComponent } from './Learnings/learnings/learnings.component';
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
     BlogsApprovalComponent,
     SubmitLearningComponent,
-    ReviewLearningComponent
+    ReviewLearningComponent,
+    LearningsComponent
   ],
   imports: [
     BrowserModule,

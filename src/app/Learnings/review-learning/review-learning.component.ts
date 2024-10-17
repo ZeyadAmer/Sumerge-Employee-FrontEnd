@@ -1,26 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-export interface Learning {
-    id: number;
-    proof: string;
-    proofTypesDTO: { id: number; proofType: string }; 
-    learningTypesDTO: { id: number; learningType: string; baseScore: number };
-    comment: string;
-}
-
-export interface LearningType {
-    id: number;
-    name: string;
-}
-
-export interface LearningSubject {
-    id: number;
-    subject: string;
-}
+import { LearningsService, Learning } from '../learnings.service';
 
 @Component({
     selector: 'app-review-learning',
@@ -32,89 +11,54 @@ export class ReviewLearningComponent implements OnInit {
     pageSize: number = 5;
     isLoading: boolean = false;
     learnings: Learning[] = [];
-    learningTypes: LearningType[] = [];
-    learningSubjects: LearningSubject[] = [];
     userId: number = 0;
 
-    constructor(private http: HttpClient, private cookieService: CookieService) {}
+    constructor(private learningsService: LearningsService) {}
 
     ngOnInit(): void {
         this.loadLearnings();
     }
 
     approveLearning(learning: Learning): void {
-        const token = this.cookieService.get('authToken');
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-
-        const learningId = learning.id;
         const baseScore = learning.learningTypesDTO.baseScore;
 
-        this.http.put<string>(`http://localhost:8081/userScores/add`, {}, {
-            headers,
-            params: {
-                userId: this.userId,
-                score: baseScore,
-            }
-        }).subscribe({
+        this.learningsService.approveLearning(learning.id, this.userId, baseScore).subscribe({
             next: () => {
-                this.http.put<string>(`http://localhost:8081/userLearning/approve`, learningId, { headers })
-                    .subscribe({
-                        next: (response) => {
-                            console.log(response);
-                            this.loadLearnings();
-                        },
-                        error: (err) => console.error('Error approving learning:', err)
-                    });
+                this.resetLearnings();
+                this.loadLearnings();
             },
-            error: (err) => console.error('Error updating score:', err)
+            error: (err) => console.error('Error approving learning:', err)
         });
     }
 
     rejectLearning(learningId: number): void {
-        const token = this.cookieService.get('authToken');
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
+        this.learningsService.rejectLearning(learningId).subscribe({
+            next: () => {
+                this.resetLearnings();
+                this.loadLearnings(); // Reload learnings after rejection
+            },
+            error: (err) => console.error('Error rejecting learning:', err)
         });
-
-        this.http.put<string>(`http://localhost:8081/userLearning/reject`, learningId, { headers })
-            .subscribe({
-                next: (response) => {
-                    console.log(response);
-                    this.loadLearnings();
-                },
-                error: (err) => console.error('Error rejecting learning:', err)
-            });
     }
 
     loadLearnings(): void {
         if (this.isLoading || this.userId === 0) return;
 
         this.isLoading = true;
-        this.learnings = [];
-        this.currentPage = 0;
-        const token = this.cookieService.get('authToken');
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-
-        this.http.get<Learning[]>(`http://localhost:8081/userLearning/pending`, {
-            headers,
-            params: {
-                id: this.userId.toString(),
-                page: this.currentPage.toString(),
-                size: this.pageSize.toString()
-            }
-        }).subscribe({
+        this.learningsService.getPendingLearnings(this.userId, this.currentPage, this.pageSize).subscribe({
             next: (response) => {
                 this.learnings = this.learnings.concat(response || []);
                 this.currentPage++;
-                console.log("Loaded learnings:", this.learnings);
+                console.log('Loaded learnings:', this.learnings);
             },
             error: (err) => console.error('Error fetching learnings:', err),
             complete: () => this.isLoading = false
         });
+    }
+
+    resetLearnings(): void {
+        this.learnings = []; // Clear the old learnings
+        this.currentPage = 0; // Reset the page count
     }
 
     @HostListener('window:scroll', ['$event'])

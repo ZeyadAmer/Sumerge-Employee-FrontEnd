@@ -10,7 +10,7 @@
                 <h3>{{ blog.title }}</h3>
                 <p class="blog-content">{{ blog.documentData }}</p>
                 <div class="blog-info">
-                    <span class="blog-author">by {{ blog.author }}</span>
+                    <span class="blog-author">by {{ blog.authorName || 'Unknown Author' }}</span>
                     <span class="blog-date">{{ blog.submissionDate | date:'medium' }}</span>
                 </div>
             </div>

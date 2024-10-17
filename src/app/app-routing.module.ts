@@ -12,6 +12,7 @@ import { BlogsApprovalComponent } from './blogs/blogs-approval/blogs-approval.co
 import { SubmitLearningComponent } from './Learnings/submit-learning/submit-learning.component';
 import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
 import { CareerPackageComponent } from './career-package/career-package.component';
+import { LearningsComponent } from './Learnings/learnings/learnings.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent }, 
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'blogs', component: BlogComponent,canActivate: [AuthGuard] },
   { path: 'blogs-approval', component: BlogsApprovalComponent, canActivate: [AuthManager] },
   { path: 'submit-learning', component:SubmitLearningComponent, canActivate: [AuthGuard]},
+  { path: 'learnings', component:LearningsComponent, canActivate:[AuthGuard]},
   { path: 'approve-learning', component:ReviewLearningComponent, canActivate: [AuthManager]},
   {path: 'career-package', component: CareerPackageComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
