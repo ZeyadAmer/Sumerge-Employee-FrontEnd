@@ -1,22 +1,40 @@
 <header>
   <a href="#"><img src="logo.jpg" class="logo"></a>
   <ul>
-      <li><a (click)="goToHome()">Home</a></li>
-      <li class="dropdown">
-          <a (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
-              Learnings
-          </a>
-          <ul class="dropdown-menu" *ngIf="showDropdown" 
-              (mouseenter)="onMouseEnter()" 
-              (mouseleave)="onMouseLeave()">
-              <li><a>Course 1</a></li>
-              <li><a>Course 2</a></li>
-              <li><a>Course 3</a></li>
-          </ul>
-      </li>
-      <li><a (click)="goToCareerPackage()">Career Package</a></li>
-      <li *ngIf="admin"><a (click)="goToAdmin()">Admin Controls</a></li>
-      <li><a>Profile</a></li>
-      <li><a (click)="onClickLogout()">Logout</a></li>
+    <li><a (click)="goToHome()">Home</a></li>
+
+    <li class="dropdown">
+      <a 
+        (mouseenter)="onMouseEnter('learnings')" 
+        (mouseleave)="onMouseLeave('learnings')" 
+        (click)="goToLearnings()">
+        Learnings
+      </a>
+      <ul class="dropdown-menu" *ngIf="showLearningsDropdown"
+          (mouseenter)="onMouseEnter('learnings')" 
+          (mouseleave)="onMouseLeave('learnings')">
+        <li *ngIf="manager"><a (click)="goToReviewLearnings()">Review</a></li>
+        <li><a (click)="goToSubmitLearnings()">Submit</a></li>
+      </ul>
+    </li>
+
+    <li><a (click)="goToCareerPackage()">Career Package</a></li>
+
+    <li class="dropdown">
+      <a 
+        (mouseenter)="onMouseEnter('blogs')" 
+        (mouseleave)="onMouseLeave('blogs')" 
+        (click)="goToBlogs()">
+        Blogs
+      </a>
+      <ul class="dropdown-menu" *ngIf="showBlogsDropdown" 
+          (mouseenter)="onMouseEnter('blogs')" 
+          (mouseleave)="onMouseLeave('blogs')">
+        <li *ngIf="manager"><a (click)="goToBlogsApproval()">Blogs Approval</a></li>
+      </ul>
+    </li>
+
+    <li *ngIf="admin"><a (click)="goToAdmin()">Admin Controls</a></li>
+    <li><a (click)="onClickLogout()">Logout</a></li>
   </ul>
 </header>
