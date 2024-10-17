@@ -1,49 +1,46 @@
 @import url('https://fonts-googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
 
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-/* Base styles */
-section {
+section{
     position: relative;
     width: 100%;
     min-height: 100vh;
-    padding: 20px;
+    padding: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #2d3286;
 }
 
-header {
+header{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 15px 20px;
+    padding: 20px 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    z-index: 1000;
 }
 
-header .logo {
+header .logo{
     position: relative;
-    max-width: 120px;
+    max-width: 150px;
 }
 
-header ul {
+header ul{
     position: relative;
     display: flex;
-    flex-wrap: wrap;
 }
 
-header ul li {
+header ul li{
     list-style: none;
 }
 
@@ -51,109 +48,101 @@ header ul li a {
     display: inline-block;
     color: #333;
     font-weight: 400;
-    margin-left: 20px;
+    margin-left: 40px;
     text-decoration: none;
-    cursor: pointer;
 }
 
-.content {
+.content{
     position: relative;
     width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
 }
 
-.content .textBox {
+.content .textBox{
     position: relative;
     max-width: 600px;
-    width: 100%;
 }
 
-.content .textBox h2 {
+.content .textBox h2{
     color: white;
-    font-size: 2.5em;
+    font-size: 4em;
     line-height: 1.4em;
     font-weight: 500;
 }
 
-.content .textBox h2 span {
+.content .textBox h2 span{
     color: #5abdab;
     font-size: 1.2em;
     font-weight: 900;
 }
 
-.content .imageBox {
-    width: 100%;
-    max-width: 600px;
+.content .imageBox{
+    width: 600px;
     display: flex;
-    justify-content: center;
-    padding-right: 20px;
-    margin-top: 20px;
+    justify-content: flex-end;
+    padding-right: 50px;
+    margin-top: 50px;
 }
 
-.content .imageBox img {
-    max-width: 100%;
-    height: auto;
+.content .imageBox img{
+    max-width: 400px;
     filter: invert(1);
 }
 
-.thumb {
+.thumb{
     position: absolute;
     left: 50%;
     bottom: 20px;
     transform: translateX(-50%);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
 }
 
-.thumb li {
+.thumb li{
     list-style: none;
+    display: inline-block;
+    margin: 0 20px;
     cursor: pointer;
     transition: 0.5s;
 }
 
-.thumb li:hover {
+.thumb li:hover{
     transform: translateY(-15px);
 }
 
-.thumb li img {
+.thumb li img{
     max-width: 60px;
     filter: invert(1);
 }
 
-.circle {
+.circle{
     position: absolute;
-    top: 0;
+    top:0;
     left: 0;
     width: 100%;
     height: 100%;
     background: #5abdab;
-    clip-path: circle(300px at right 750px);
+    clip-path: circle(400px at right 750px);
 }
 
-/* Scoreboard Section */
 .scoreboard {
     background: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    min-height: 100vh;
-    padding: 20px;
+    height: 100vh;
 }
 
 .scoreboard h2 {
     color: #5abdab;
     text-align: center;
-    font-size: 2.5em;
+    max-width: 600px;
+    font-size: 4em;
     line-height: 1.4em;
     font-weight: 900;
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
 .scoreboard-background {
@@ -162,127 +151,110 @@ header ul li a {
     background-color: #2d3186ea;
     border-radius: 20px;
     padding: 20px;
-    overflow-y: auto;
+    overflow-y: auto; 
 }
 
-/* Journey Map Section */
-.journey-map {
-    background-color: #5abdab;
-    position: relative;
-}
-
-.white-div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 50%;
-    background-color: white;
-    z-index: 0;
-    transform: translate(-50%, -50%);
-}
-
-.journey-map .textBox h2 span {
+.journey-map .textBox h2 span{
     color: #383074;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 1024px) {
-    section {
-        padding: 15px;
-    }
-    
-    .content {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .content .textBox h2 {
-        font-size: 2em;
-    }
-    
-    .content .imageBox {
-        margin-top: 40px;
-        padding-right: 0;
-    }
-    
-    .circle {
-        clip-path: circle(250px at right 50%);
-    }
+.journey-map {
+    background-color: #5abdab;
 }
 
-@media screen and (max-width: 768px) {
-    header {
-        padding: 10px;
-    }
-    
-    header ul {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: white;
-        flex-direction: column;
-        padding: 20px 0;
-    }
-    
-    header ul.active {
-        display: flex;
-    }
-    
-    header ul li {
-        margin: 10px 0;
-    }
-    
-    header ul li a {
-        margin: 5px 20px;
-    }
-    
-    .content .textBox h2 {
-        font-size: 1.8em;
-    }
-    
-    .scoreboard h2 {
-        font-size: 2em;
-    }
-    
-    .circle {
-        clip-path: circle(200px at right 50%);
-    }
+.journey-map .content {
+    display: flex; /* Ensure children are in a row */
+    justify-content: space-between; /* Space them out */
+    align-items: center; /* Align items vertically */
 }
 
-@media screen and (max-width: 480px) {
-    .content .textBox h2 {
-        font-size: 1.5em;
-    }
-    
-    .thumb {
-        bottom: 10px;
-    }
-    
-    .thumb li img {
-        max-width: 40px;
-    }
-    
-    .circle {
-        clip-path: circle(150px at right 50%);
-    }
-    
-    .scoreboard h2 {
-        font-size: 1.5em;
-    }
+.journey-map .textBox {
+    flex: 1; /* Allow the textBox to take up available space */
+    max-width: 600px; /* Set a max-width to maintain size */
 }
 
-/* Mobile Navigation Toggle */
-.mobile-menu-toggle {
-    display: none;
-    cursor: pointer;
-    font-size: 24px;
+.carousel-container {
+    flex: 1; /* Allow the carousel to take up available space */
+    display: flex; /* Optional: Center carousel */
+    justify-content: center; /* Center the carousel if needed */
+    align-items: center; /* Align items vertically */
 }
 
-@media screen and (max-width: 768px) {
-    .mobile-menu-toggle {
-        display: block;
-    }
+/* Optional: If you want to limit the size of the carousel */
+.carousel-container app-user-carousel {
+    max-width: 100%; /* Adjust as necessary */
+    width: 100%; /* Make it responsive */
+}
+
+.journey-map {
+    position: relative; /* Ensure positioning for child elements */
+    background-color: #5abdab; /* Optional: Keep the background color */
+}
+
+.white-div {
+    position: absolute; /* Positioning it absolutely within the section */
+    top: 50%; /* Move to the middle vertically */
+    left: 50%; /* Move to the middle horizontally */
+    width: 100%; /* Full width */
+    height: 50%; /* Set height to 50% of the section */
+    background-color: white; /* White background */
+    z-index: 0; /* Place it behind other content */
+    transform: translate(-50%, -50%); /* Center the div */
+}
+
+
+/* Ensure content is positioned above the white div */
+.content {
+    position: relative; /* Keep the content in relation to the white div */
+    z-index: 1; /* Ensure it is above the white div */
+    display: flex; /* Ensure children are in a row */
+    justify-content: space-between; /* Space them out */
+    align-items: center; /* Align items vertically */
+    padding: 100px; /* Add padding to prevent overlap with the white div */
+}
+
+.content .textBox {
+    flex: 1; /* Allow the textBox to take up available space */
+    max-width: 600px; /* Set a max-width to maintain size */
+}
+
+.carousel-container {
+    flex: 1; /* Allow the carousel to take up available space */
+    display: flex; /* Optional: Center carousel */
+    justify-content: center; /* Center the carousel if needed */
+    align-items: center; /* Align items vertically */
+}
+
+/* Optional: If you want to limit the size of the carousel */
+.carousel-container app-user-carousel {
+    max-width: 100%; /* Adjust as necessary */
+    width: 100%; /* Make it responsive */
+}
+
+ul li:hover > a {
+    color: #007bff; /* Change this to your desired hover color */
+}
+
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute; /* Positioned relative to the parent li */
+    background-color: #ffffff; /* Background color of dropdown */
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    min-width: 160px; /* Minimum width of the dropdown */
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    color: #333; /* Change to your desired text color */
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1; /* Change to your desired hover color */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Show the dropdown on hover */
 }
