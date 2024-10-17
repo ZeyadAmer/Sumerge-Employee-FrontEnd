@@ -3,9 +3,10 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SubmittedCareerPackage, UserCareerPackage } from './users.model';
+import { CareerPackageTemplateDTO, SubmittedCareerPackage, TitleUser, UserCareerPackage } from './users.model';
 import { CookieService } from 'ngx-cookie-service';
 import { CommentDTO } from '../managers/managers.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-users',
@@ -21,6 +22,7 @@ export class UsersComponent {
   uploadedFile!: File;
   isSubmitted: boolean = false;
   employeeId!: number;
+  careerPackageTemplateTitle!: string;
 
   @Output() reloadCareerPackageParent = new EventEmitter<void>();
 
@@ -31,8 +33,10 @@ export class UsersComponent {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
     try {
-      const user = await this.http.get<string>('http://localhost:8080/users', { headers }).toPromise();
+      const user = await this.http.get<TitleUser>('http://localhost:8080/users', { headers }).toPromise();
       const userId: any = await this.http.get<string>('http://localhost:8080/users/id', { headers }).toPromise();
+      const careerPackageTemplate = await this.http.get<CareerPackageTemplateDTO>(`http://localhost:8083/careerPackageTemplates/${user!.title.name}`, { headers }).toPromise();
+      this.careerPackageTemplateTitle = careerPackageTemplate!.title;
       this.fetchSubmissionMessages(userId);
     } catch (error) {
       console.error('Error fetching user or userId:', error);
@@ -46,12 +50,6 @@ export class UsersComponent {
     }
   }
 
-  // submitComment(): void {
-  //   if (this.comment) {
-  //     this.comments.push(this.comment);
-  //     this.comment = ''; // Clear the input
-  //   }
-  // }
 
   async submitCareerPackage(): Promise<void> {
     if (!this.uploadedFile) {
@@ -75,6 +73,7 @@ export class UsersComponent {
       formData.append('careerPackage', this.uploadedFile);
       formData.append('careerPackageName', this.uploadedFile.name);
       formData.append('date', currentDate);
+      formData.append("careerPackageTemplate", this.careerPackageTemplateTitle);
 
       const response = await this.http.post<string>('http://localhost:8083/employeeCareerPackages', formData, { headers }).toPromise();
       console.log('Response:', response);
