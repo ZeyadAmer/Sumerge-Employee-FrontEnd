@@ -12,7 +12,7 @@ export class LearningsComponent implements OnInit {
   constructor(private learningsService: LearningsService) {}
 
   ngOnInit() {
-    this.learningsService.getLearnings().subscribe(data => {
+    this.learningsService.getAllLearnings().subscribe(data => {
       this.learnings = data;
     });
   }

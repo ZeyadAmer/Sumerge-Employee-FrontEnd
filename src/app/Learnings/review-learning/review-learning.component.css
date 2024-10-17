@@ -106,3 +106,7 @@ html, body {
 .buttons button:hover {
   background-color: #7160e1;
 }
+/* input-section.component.css */
+.container {
+  margin-top: 100px; /* Adjust this value to the height of your app-header */
+}

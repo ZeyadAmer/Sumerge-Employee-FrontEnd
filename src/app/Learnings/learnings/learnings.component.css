@@ -30,4 +30,7 @@ html, body {
     background-color: #cfb6fc; /* Slightly lighter purple */
     color: #333;
   }
-  
+  /* learning.component.css */
+.app-learnings {
+  margin-top: 60px; /* Adjust this value to the height of your app-header */
+}

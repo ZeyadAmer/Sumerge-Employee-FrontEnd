@@ -54,6 +54,9 @@ export class LearningsService {
     getLearnings(): Observable<any[]> {
         return this.http.get<any[]>('http://localhost:8081/userLearning/all', { headers: this.getAuthHeaders() });
       }
+      getAllLearnings(): Observable<any[]> {
+        return this.http.get<any[]>('http://localhost:8081/learnings/all', { headers: this.getAuthHeaders() });
+      }
 
     submitLearning(learning: any): Observable<any> {
         return this.http.post('http://localhost:8081/userLearning', learning, { headers: this.getAuthHeaders() });

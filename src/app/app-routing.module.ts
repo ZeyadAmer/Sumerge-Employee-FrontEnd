@@ -13,18 +13,26 @@ import { SubmitLearningComponent } from './Learnings/submit-learning/submit-lear
 import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
 import { CareerPackageComponent } from './career-package/career-package.component';
 import { LearningsComponent } from './Learnings/learnings/learnings.component';
+import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent }, 
-  { path: 'signup', component: SignUpComponent, canActivate: [AuthRole] }, 
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }, 
-  { path: 'admin-controls', component: AdminControlComponent, canActivate: [AuthRole] }, 
-  { path: 'blogs', component: BlogComponent,canActivate: [AuthGuard] },
-  { path: 'blogs-approval', component: BlogsApprovalComponent, canActivate: [AuthManager] },
-  { path: 'submit-learning', component:SubmitLearningComponent, canActivate: [AuthGuard]},
-  { path: 'learnings', component:LearningsComponent, canActivate:[AuthGuard]},
-  { path: 'approve-learning', component:ReviewLearningComponent, canActivate: [AuthManager]},
-  {path: 'career-package', component: CareerPackageComponent, canActivate: [AuthGuard]},
+  { path: 'login', component: LoginComponent },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: 'signup', component: SignUpComponent, canActivate: [AuthRole] }, 
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }, 
+      { path: 'admin-controls', component: AdminControlComponent, canActivate: [AuthRole] }, 
+      { path: 'blogs', component: BlogComponent,canActivate: [AuthGuard] },
+      { path: 'blogs-approval', component: BlogsApprovalComponent, canActivate: [AuthManager] },
+      { path: 'submit-learning', component:SubmitLearningComponent, canActivate: [AuthGuard]},
+      { path: 'learnings', component:LearningsComponent, canActivate:[AuthGuard]},
+      { path: 'approve-learning', component:ReviewLearningComponent, canActivate: [AuthManager]},
+      {path: 'career-package', component: CareerPackageComponent, canActivate: [AuthGuard]},
+    ],
+  }, 
+  
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 ];

@@ -15,6 +15,7 @@ import { ReviewLearningComponent } from './Learnings/review-learning/review-lear
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { LearningsComponent } from './Learnings/learnings/learnings.component';
 import { HeaderComponent } from "./header/header.component";
+import { LayoutComponent } from './layout/layout.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { HeaderComponent } from "./header/header.component";
     BlogsApprovalComponent,
     SubmitLearningComponent,
     ReviewLearningComponent,
-    LearningsComponent
+    LearningsComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,

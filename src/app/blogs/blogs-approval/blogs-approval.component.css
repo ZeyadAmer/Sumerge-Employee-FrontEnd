@@ -8,6 +8,8 @@
     align-items: center;
     padding: 20px;
     font-family: 'Arial', sans-serif;
+    margin-top: 60px;
+    padding: 20px;
 }
 
 /* Scrollable area */
@@ -59,3 +61,5 @@ button {
 button:hover {
     background-color: #7160e1; /* Brighter purple on hover */
 }
+
+  
