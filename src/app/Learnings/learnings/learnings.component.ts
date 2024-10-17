@@ -1,12 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LearningsService } from '../learnings.service';
 
 @Component({
   selector: 'app-learnings',
-  standalone: true,
-  imports: [],
   templateUrl: './learnings.component.html',
-  styleUrl: './learnings.component.css'
+  styleUrls: ['./learnings.component.css']
 })
-export class LearningsComponent {
+export class LearningsComponent implements OnInit {
+  learnings: any[] = [];
 
+  constructor(private learningsService: LearningsService) {}
+
+  ngOnInit() {
+    this.learningsService.getLearnings().subscribe(data => {
+      this.learnings = data;
+    });
+  }
 }

@@ -1,1 +1,11 @@
-<p>learnings works!</p>
+<div class="app-learnings">
+    <div class="scrollable-content">
+      <div *ngFor="let learning of learnings" class="learning-item">
+        <h3>{{ learning.learningTypesDTO.learningType }} ({{ learning.learningTypesDTO.baseScore }} Points)</h3>
+        <p><strong>Description:</strong> {{ learning.description }}</p>
+        <p><strong>URL:</strong> <a href="{{ learning.url }}" target="_blank">{{ learning.url }}</a></p>
+        <p><strong>Subject:</strong> {{ learning.learningSubjectsDTO.subject }} ({{ learning.learningSubjectsDTO.learningSubjectsType }})</p>
+      </div>
+    </div>
+  </div>
+  

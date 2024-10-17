@@ -1,0 +1,33 @@
+/* Ensure the body and html fill the whole page */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Ensure the main container fills the whole page */
+  .app-learnings {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 100% of the viewport height */
+    overflow-y: auto; /* Allows scrolling if content overflows */
+    background-color: #1e1b3a; /* Purple-themed background */
+  }
+  
+  /* Optional: Style the scrollable content */
+  .scrollable-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Scrollable */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Example styling for the items */
+  .learning-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #cfb6fc; /* Slightly lighter purple */
+    color: #333;
+  }
+  

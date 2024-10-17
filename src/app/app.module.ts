@@ -13,6 +13,7 @@ import { BlogComponent } from './blogs/blog/blog.component';
 import { SubmitLearningComponent } from './Learnings/submit-learning/submit-learning.component';
 import { ReviewLearningComponent } from './Learnings/review-learning/review-learning.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { LearningsComponent } from './Learnings/learnings/learnings.component';
 import { HeaderComponent } from "./header/header.component";
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HeaderComponent } from "./header/header.component";
     SignUpComponent,
     BlogsApprovalComponent,
     SubmitLearningComponent,
-    ReviewLearningComponent
+    ReviewLearningComponent,
+    LearningsComponent
   ],
   imports: [
     BrowserModule,
