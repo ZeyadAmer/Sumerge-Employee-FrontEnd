@@ -77,27 +77,4 @@ export class ApplyBoosterFormComponent {
     );
   }
 
-  // // active booster
-  // applyActiveBooster!: ActiveBooster[];
-
-
-  // onSubmitApplyBooster() {
-  //   if (this.applyBoosterForm.valid) {
-  //     const boosterData = {
-  //       name: this.applyBoosterForm.get('boosterName')?.value,
-  //       isActive: this.applyBoosterForm.get('isActive')?.value,
-  //     };
-
-  //     console.log("Booster Form Data:", boosterData);
-  //     this.resetBoosterFields();
-  //   } else {
-  //     console.log('Booster Form is invalid');
-  //   }
-  // }
-
-  // private resetBoosterFields() {
-  //   this.applyBoosterForm.reset({ isActive: false });
-  // }
-
-
 }

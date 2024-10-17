@@ -87,11 +87,6 @@ export class UserCarouselComponent {
     return `${index}/line.png`;
   }
 
-  // calculatePosition(score: number): string {
-  //   const positionPercentage = (score / this.maxScore) * 100; // Calculate position based on score
-  //   return `${positionPercentage}%`; // Convert to percentage
-  // }
-
   calculatePosition(score: number): string {
     const startCircleWidth = 100; 
     const startPosition = 0; 

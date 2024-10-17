@@ -1,69 +1,144 @@
+/* Global Styles */
 html, body {
-    height: 100%; /* Make sure the body takes full height */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    overflow: hidden; /* Prevent scrolling on the body */
-    background-color: #1e1b3a; /* Dark purple background */
-    color: #ffffff; /* White text */
-    font-family: Arial, sans-serif; /* Optional: set a default font */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #1e1b3a;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Prevent scrolling the entire body */
 }
 
-.learning-container {
-    background-color: #1e1b3a; /* Dark purple for the container */
-    color: #ffffff; /* White text */
-    width: 400px; /* Fixed width for the box */
+/* Container for the entire page */
+.container {
+    background-color: #1e1b3a;
+    color: white;
     padding: 20px;
+    margin: 20px auto;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 20px auto; /* Center the box at the top of the screen */
-    text-align: left; /* Left-align text inside the box */
 }
 
-.learning-container h2 {
-    text-align: center; /* Center the title for aesthetic purposes */
+/* Input section styling */
+.input-section {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 20px; /* Space between form groups */
+.input-section label {
+    margin-right: 10px;
+    width: 100px;
 }
 
-label {
-    margin-bottom: 5px; /* Space between label and input */
-    display: block; /* Make labels block-level elements */
+.input-section input, .input-section select {
+    padding: 10px;
+    margin-right: 20px;
+    border-radius: 4px;
+    border: none;
 }
 
-input, select, textarea {
-    width: 100%; /* Full width for inputs and selects */
-    padding: 10px; /* Padding inside input fields */
-    border-radius: 5px; /* Rounded corners for inputs */
-    border: 1px solid #ccc; /* Light border */
-}
-
-button {
-    background-color: #5b6de0; /* Dark blue for buttons */
+.input-section button {
+    background-color: #5b6de0;
     color: white;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
     cursor: pointer;
     transition: background-color 0.3s;
-    width: 100%; /* Make button full width */
+}
+
+.input-section button:hover {
+    background-color: #7160e1;
+}
+
+/* Learning list container */
+.learning-list-container {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.learning-item {
+    background-color: #2c2658;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.learning-item p {
+    margin: 5px 0;
+}
+
+button {
+    background-color: #5b6de0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #7160e1; /* Brighter purple on hover */
+    background-color: #7160e1;
 }
 
 .learning-list-container {
-    margin-top: 20px; /* Space above learning list */
-    text-align: center; /* Center align the heading */
-}
-
-.learning-list {
-    max-height: 300px; /* Set a maximum height for the learning list */
-    overflow-y: auto; /* Enable vertical scrolling if necessary */
-    border-radius: 8px;
+    max-height: 1000px; /* Adjust the height as needed */
+    overflow-y: auto;
+    border: 1px solid #ddd; /* Optional: Change border color as needed */
     padding: 10px;
-    background-color: #1e1b3a; /* Match the background */
-    border: 1px solid #ccc; /* Light border for the list */
-}
+    background-color: #1e1b3a; /* Dark purple background to match your theme */
+    color: #ffffff; /* White text color for better readability */
+  }
+  
+  .list-group-item {
+    background-color: transparent; /* Make list items background transparent */
+    color: #ffffff; /* Set list item text color to white */
+    border: none; /* Remove border if desired */
+  }
+  
+  .list-group-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Optional: Light hover effect */
+  }
+  .text-white {
+    color: #ffffff; /* White color for 'PENDING' status */
+  }
+  
+  .text-grey {
+    color: #808080; /* Grey color for other statuses */
+  }
+  .padding-left {
+    padding-left: 10px; /* Adjust this value for more or less spacing */
+  }
+  /* Overall container */
+.container {
+    background-color: #1e1b3a; /* Dark purple */
+    color: #ffffff; /* White text */
+    min-height: 100vh; /* Full height of the page */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Scrollable area */
+  .scrollable {
+    width: 100%;
+    flex-grow: 1; /* Allows this section to take up remaining space */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin-top: 20px; /* Space above the scrollable area */
+    max-height: 500px; /* Limit the height for scrolling */
+  }
+  
+  /* List group items */
+  .list-group-item {
+    background-color: #2a2650; /* Dark blue */
+    color: #ffffff;
+    padding: 10px; /* Increase padding for more space */
+    margin-bottom: 10px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }

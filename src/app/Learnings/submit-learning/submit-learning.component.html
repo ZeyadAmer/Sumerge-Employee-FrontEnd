@@ -1,52 +1,65 @@
 <html>
 <body>
-    <div class = "body">
-        <div class="learning-container">
-            <h2>Submit Learning</h2>
-            <form (ngSubmit)="submitLearning()">
-                <div class="form-group">
-                    <label for="proof">Proof:</label>
-                    <input type="text" id="proof" [(ngModel)]="learning.proof" name="proof" required>
-                </div>
-                <div class="form-group">
-                    <label for="proofType">Proof Type:</label>
-                    <select id="proofType" [(ngModel)]="learning.proofType" name="proofType" required>
-                        <option *ngFor="let type of proofTypes" [value]="type">{{ type }}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <textarea id="description" [(ngModel)]="learning.description" name="description" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="learningType">Learning Type:</label>
-                    <select id="learningType" [(ngModel)]="learning.learningType.id" name="learningType" required>
-                        <option *ngFor="let type of learningTypes" [value]="type.id">{{ type.name }}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="ManagerId">Manager id:</label>
-                    <input type="email" id="ManagerId" [(ngModel)]="learning.ManagerId" name="ManagerId" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit">Submit Learning</button>
-                </div>
-            </form>
-        </div>
+    <div class="container">
+        <h2>Submit Learning</h2>
         
-        <div class="learning-list-container">
-            <h2>Learnings</h2>
-            <div class="learning-list" *ngIf="learnings.length > 0">
-                <div class="learning-item" *ngFor="let learning of learnings">
-                    <p><strong>Proof:</strong> {{ learning.proof }}</p>
-                    <p><strong>Description:</strong> {{ learning.description }}</p>
-                    <p><strong>Proof Type:</strong> {{ learning.proofType }}</p>
-                    <p><strong>Learning Type:</strong> {{ learning.learningType.name }}</p>
-                    <p><strong>Manager Id:</strong> {{ learning.ManagerId }}</p>
-                </div>
-            </div>
-            <button (click)="loadMoreLearnings()" *ngIf="learnings.length === pageSize">Load More</button>
+        <!-- Form to submit learning -->
+        <form (ngSubmit)="submitLearning()" #learningForm="ngForm">
+          <div class="form-group">
+            <label for="learningType">Learning Type</label>
+            <select id="learningType" [(ngModel)]="learning.learningTypesDTO.id" name="learningType" class="form-control" required>
+              <option *ngFor="let learningType of learningTypes" [value]="learningType.id">
+                {{ learningType.learningType }}
+              </option>
+            </select>
+          </div>
+      
+          <div class="form-group">
+            <label for="proofType">Proof Type</label>
+            <select id="proofType" [(ngModel)]="learning.proofTypesDTO.id" name="proofType" class="form-control" required>
+              <option *ngFor="let proofType of proofTypes" [value]="proofType.id">
+                {{ proofType.proofType }}
+              </option>
+            </select>
+          </div>
+      
+          <div class="form-group">
+            <label for="proof">Proof</label>
+            <input type="text" id="proof" [(ngModel)]="learning.proof" name="proof" class="form-control" required />
+          </div>
+      
+          <button type="submit" class="btn btn-primary" [disabled]="learningForm.form.invalid">Submit</button>
+        </form>
+      
+        <hr />
+      
+        <h3>Learnings</h3>
+        <div *ngIf="learnings.length === 0">No learnings available.</div>
+        <div *ngIf="learnings.length > 0" class="scrollable">
+          <ul class="list-group">
+            <li *ngFor="let learn of learnings" class="list-group-item">
+                <strong class="text-white">Learning Type:</strong> 
+                <span class="text-grey padding-left">{{ learn.learningTypesDTO.learningType }}</span>
+                <br />
+                
+                <strong class="text-white">Proof:</strong> 
+                <span class="text-grey padding-left">{{ learn.proof }}</span>
+                <br />
+                
+                <strong class="text-white">Proof Type:</strong> 
+                <span class="text-grey padding-left">{{ learn.proofTypesDTO.proofType }}</span>
+                <br />
+                
+                <strong class="text-white">Status:</strong> 
+                <span class="text-grey padding-left">{{ learn.approvalStatus }}</span>
+                <br />
+                
+                <strong class="text-white">Comment:</strong> 
+                <span class="text-grey padding-left">{{ learn.comment }}</span>
+                <br />
+              </li>
+          </ul>
         </div>
-    </div>
+      </div>
 </body>
 </html>
